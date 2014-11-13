@@ -4,12 +4,15 @@ block css
 block js
     script(src='js/app.js')
 block content
-    .access_token
+    span.access_token= accessToken
     .wrapper
         .left-pad
         .app
             .content
-                .card
+                .card.card-one(data-bind="visible: showFirstCard()")
+                    .card-selected
+                    .card-video
+                .card.card-two(data-bind="visible: !showFirstCard()")
                     .card-selected
                     .card-video
         .right-pad
