@@ -6,7 +6,6 @@ function AppViewModel() {
     // PRIVATE
     var API_URL = 'localhost';
     var self = this;
-
     var server = new Server(API_URL);
 
     var flipCard = function() {
