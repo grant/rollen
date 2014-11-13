@@ -2,6 +2,7 @@ var Server = require('./server');
 var Friend = require('./friend');
 var Movie = require('./movie');
 var FlashMessage = require('./flashmessage');
+var ko = require('knockout');
 
 function AppViewModel() {
     // PRIVATE
