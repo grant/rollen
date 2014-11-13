@@ -16,5 +16,4 @@ var upcomingMoviesSchema = new Schema({
   release_date: String
 });
 
-
 module.exports = mongoose.model('UpcomingMovies', upcomingMoviesSchema);

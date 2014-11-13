@@ -1,13 +1,5 @@
-
-/*
-  Schema for a user.
-  Implements field validations, saving to database and
-  password comparing.
-*/
-
 var mongoose = require('mongoose'),
-  Schema = mongoose.Schema, // Each schema maps to a MongoDB collection
-  Constants = require('../config/constants');
+    Schema = mongoose.Schema; // Each schema maps to a MongoDB collection
 
 
 // For any user

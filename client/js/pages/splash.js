@@ -1,4 +1,7 @@
 var $ = require('jquery');
+var Kernel = require('../components/splash/kernel');
+
+console.log(Kernel);
 
 $(function () {
   // Setup
