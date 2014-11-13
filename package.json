@@ -19,7 +19,7 @@
   "private": true,
   "homepage": "https://github.com/grant/Rollen",
   "dependencies": {
-    "connect-redis": "^1.4.7",
+    "connect-redis": "~1.4.7",
     "debug": "~2.0.0",
     "express": "3.4.7",
     "jade": "~1.6.0",

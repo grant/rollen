@@ -12,7 +12,7 @@ function AppViewModel() {
     var RIGHT = 39;
 
 
-    var ACCESS_TOKEN = $('#access-token').html();
+    var ACCESS_TOKEN = $('#access-token').text();
     var self = this;
     var server = new Server(API_URL);
 
@@ -37,6 +37,7 @@ function AppViewModel() {
     self.currentFriends = ko.observableArray([]);
     self.currentMovie = ko.observable(null);
     self.showFirstCard = ko.observable(true);
+    self.showDetails = ko.observable(false);
 
     self.onNewMovie = function(movie) {
         movies.push(movie)
