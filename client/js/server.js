@@ -1,4 +1,4 @@
-function Server() {
+function Server(url) {
     var self = this;
 
     self.getNextTrailer = function() {
