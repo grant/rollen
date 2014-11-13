@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/grant/Rollen/issues"
   },
-  "homepage": "https://github.com/grant/Rollen"
+  "homepage": "https://github.com/grant/Rollen",
+  "dependencies": {
+    "express": "^4.10.2"
+  }
 }
