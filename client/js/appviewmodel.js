@@ -3,6 +3,7 @@ var Friend = require('./friend');
 var Movie = require('./movie');
 
 function AppViewModel() {
+    // PRIVATE
     var API_URL = 'localhost';
     var self = this;
 
@@ -17,6 +18,7 @@ function AppViewModel() {
 
     };
 
+    // PUBLIC
     self.currentFriends = ko.observableArray([]);
 
     self.onNewMovie = function(movie) {
