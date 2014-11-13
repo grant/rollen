@@ -28,7 +28,10 @@ gulp
 
 ## Built with
 
-- :cloud: Express
+- :cloud: Heroku
+- :dash: Express
 - :lipstick: Stylus
 - :gem: Jade
 - :tropical_fish: Gulp
+- :earth_americas: Facebook API
+- :floppy_disk: MongoDB
