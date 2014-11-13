@@ -14,7 +14,8 @@ var src = {
     'client/js/app.js',
     'client/js/splash.js'
   ],
-  stylus: 'client/stylus/pages/*.styl'
+  stylus: 'client/stylus/**/*.styl',
+  stylus_index: 'client/stylus/pages/*.styl'
 };
 
 var dest = {
@@ -24,7 +25,7 @@ var dest = {
 
 // Tasks
 gulp.task('css', function () {
-  gulp.src(src.stylus)
+  gulp.src(src.stylus_index)
     .pipe(stylus())
     .pipe(prefix())
     .pipe(minify())
@@ -39,7 +40,7 @@ gulp.task('js', function () {
 });
 
 gulp.task('watch', function () {
-  gulp.watch(src.css, ['css']);
+  gulp.watch(src.stylus_index, ['css']);
   gulp.watch(src.js, ['js']);
 });
 
