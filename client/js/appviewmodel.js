@@ -5,8 +5,11 @@ var Movie = require('./movie');
 function AppViewModel() {
     // PRIVATE
     var API_URL = 'localhost';
+    var ACCESS_TOKEN = $('#access-token').html();
     var self = this;
     var server = new Server(API_URL);
+
+
 
     var flipCard = function() {
         // DO JQUERY FLIP HERE
