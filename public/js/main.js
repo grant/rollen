@@ -55,10 +55,12 @@ function Movie() {
 
 module.exports = Movie;
 },{}],5:[function(require,module,exports){
-function Server() {
+function Server(url) {
     var self = this;
 
-    self.getNextTrailer
+    self.getNextTrailer = function() {
+
+    };
 }
 
 module.exports = Server;
