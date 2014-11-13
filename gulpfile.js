@@ -11,8 +11,7 @@ var minify = require('gulp-minify-css');
 var src = {
   js: ['client/js/**/*.js'],
   js_index: ['client/js/main.js'],
-  stylus: 'client/stylus/pages/*.styl',
-  css: 'public/css/**/*.css'
+  stylus: 'client/stylus/pages/*.styl'
 };
 
 var dest = {
@@ -22,7 +21,8 @@ var dest = {
 
 // Tasks
 gulp.task('css', function () {
-  gulp.src(src.css)
+  gulp.src(src.stylus)
+    .pipe(stylus())
     .pipe(prefix())
     .pipe(minify())
     .pipe(gulp.dest(dest.css));
