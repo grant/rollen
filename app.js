@@ -10,6 +10,8 @@ var users = require('./routes/users');
 
 var app = express();
 
+app.set('port', process.env.PORT || 3000);
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -57,7 +59,7 @@ app.use(function(err, req, res, next) {
 });
 
 
-var server = app.listen(3000, function () {
+var server = app.listen(app.get('port'), function () {
   var host = server.address().address;
   var port = server.address().port;
 
