@@ -11,6 +11,7 @@ body
 
 .popcorn.layer
   bottom 0
+  pointer-events none
 
   .popcorn-bucket
     position: relative
@@ -47,17 +48,28 @@ body
     .login-area
       color white
       text-align center
+      cursor pointer
+
+      &:hover
+        .login-link
+          color gray
+        .image-area svg #fillpath
+          fill gray
 
       .image-area
         display inline-block
         margin 0 20px
-        .fb
+
+        svg
           width 100px
           height 100px
+
+          #fillpath
+            fill white
 
       .title-area
         display inline-block
 
         .title
-          font-size 100px
+          font-size 130px
           font-family BebasNeue
