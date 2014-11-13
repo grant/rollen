@@ -3,6 +3,7 @@ var Friend = require('./friend');
 var Movie = require('./movie');
 var FlashMessage = require('./flashmessage');
 var ko = require('knockout');
+var $ = require('jquery');
 
 function AppViewModel() {
     // PRIVATE
