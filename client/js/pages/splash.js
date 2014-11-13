@@ -1,19 +1,28 @@
 var $ = require('jquery');
 var Kernel = require('../components/splash/kernel');
 
-console.log(Kernel);
-
 $(function () {
   // Setup
   var $kernels = $('.popcorn-kernels');
   var kernels = [];
 
   function createKernel () {
-    var $kernel = $('<img src="img/popcornkern.svg"/>').addClass('kernel');
-    $kernels.css('transform', 'scale(0.2) rotate(33.2deg)');
-    // $kernels.css('transform', '');
-    $kernels.append($kernel);
+    var kernel = new Kernel();
+
+    // Add to DOM
+    $kernels.append(kernel.$el);
+
+    // Add to kernel list
+    kernels.push(kernel);
+  }
+
+  function updateKernels () {
+    for (var i in kernels) {
+      var kernel = kernels[i];
+      kernel.update();
+    }
   }
 
   createKernel();
+  setInterval(updateKernels, 100);
 });
