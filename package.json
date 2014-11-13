@@ -29,7 +29,8 @@
     "passport": "^0.2.1",
     "passport-facebook": "^1.0.3",
     "redis": "^0.12.1",
-    "request": "^2.48.0"
+    "request": "^2.48.0",
+    "raf": "^2.0.4"
   },
   "devDependencies": {
     "gulp-plumber": "^0.6.6",
