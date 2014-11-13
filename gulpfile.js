@@ -1,0 +1,10 @@
+browserify = require('gulp-browserify');
+coffeelint = require('gulp-coffeelint');
+gulp = require('gulp');
+gutil = require('gulp-util');
+plumber = require('gulp-plumber');
+prefix = require('gulp-autoprefixer');
+stylus = require('gulp-stylus');
+uglify = require('gulp-uglify');
+watch = require('gulp-watch');
+minify = require('gulp-minify-css');
