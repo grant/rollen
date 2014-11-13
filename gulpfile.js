@@ -10,10 +10,7 @@ var minify = require('gulp-minify-css');
 
 var src = {
   js: ['client/js/**/*.js'],
-  js_index: [
-    'client/js/app.js',
-    'client/js/splash.js'
-  ],
+  js_index: 'client/js/pages**/*.js',
   stylus: 'client/stylus/**/*.styl',
   stylus_index: 'client/stylus/pages/*.styl'
 };
