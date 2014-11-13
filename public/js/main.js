@@ -55,9 +55,7 @@ module.exports = Movie;
 function Server() {
     var self = this;
 
-    self.getNextTrailer = function() {
-
-    };
+    self.getNextTrailer
 }
 
 module.exports = Server;
