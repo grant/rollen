@@ -14,6 +14,14 @@ Go to `0.0.0.0:3000`
 
 ## How to develop
 
+### Install
+
+```sh
+npm install gulp -g
+```
+
+### Run
+
 ```sh
 gulp
 ```
