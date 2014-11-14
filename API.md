@@ -159,7 +159,7 @@ If failure:
 If passes:
 
     {
-      response: 'fail'
+      response: 'ok'
     }
 
 ### Get friends who have liked the given movie
@@ -222,5 +222,5 @@ If failure:
 If passes:
 
     {
-      response: 'fail'
+      response: 'ok'
     }
