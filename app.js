@@ -61,6 +61,9 @@ app.get('/get_movies', auth.requiresLogin, routes.getMovies);
 // POST and send the movie object. Reorders the queue based on this like
 app.post('/liked', auth.requiresLogin, routes.movieLiked);
 
+// GET all friends who have liked this movie too
+app.get('/friends_like_too', auth.requiresLogin, routes.getFriendsWhoLike);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');

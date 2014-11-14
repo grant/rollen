@@ -39,7 +39,9 @@ module.exports = function (passport) {
     request('https://graph.facebook.com/me?fields=friends&limit=1000&access_token='+accessToken,
       function(err, resp, body) {
         body = JSON.parse(body);
-        callback(body.friends.data);
+        async.mapLimit(body.friends.data, 20, function(friend, cb) {return friend.id}, function(err, friends) {
+          callback(friends);
+        });
       });
   }
 
@@ -142,6 +144,8 @@ module.exports = function (passport) {
                       if (!user) {
                         new UserLikes({
                           fb_id: profile.id,
+                          name: profile.displayName,
+                          photo: profile.photos[0].value,
                           movie_likes: moviesIds
                         }).save(function(err, n) {
                           return done(null, newUser);
