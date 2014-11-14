@@ -2,10 +2,11 @@ var $ = require('jquery');
 var Kernel = require('../components/splash/kernel');
 var raf = require('raf');
 
-var CREATE_POPCORN_SPEED = 400; // ms
+var CREATE_POPCORN_SPEED = 3; // frames
 
 $(function () {
   // Setup
+  var time = 0;
   var $kernels = $('.popcorn-kernels');
   var kernels = [];
 
@@ -20,6 +21,7 @@ $(function () {
   }
 
   function updateKernels () {
+    // Only update if the current tab is active
     for (var i = kernels.length - 1; i >= 0; --i) {
       var kernel = kernels[i];
       kernel.update();
@@ -30,6 +32,12 @@ $(function () {
         kernels.splice(i, 1);
       }
     }
+
+    // Kernel time
+    ++time;
+    if (time % CREATE_POPCORN_SPEED === 0) {
+      createKernel();
+    }
   }
 
   // Request animation frame
@@ -37,5 +45,4 @@ $(function () {
     raf(tick);
     updateKernels();
   });
-  setInterval(createKernel, CREATE_POPCORN_SPEED);
 });
