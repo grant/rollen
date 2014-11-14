@@ -6,7 +6,7 @@ var User = require('./../models/user');
  */
 
 exports.index = function (req, res){
-  res.render('index', { title: constants.APP_NAME });
+  res.render('splash', { title: constants.APP_NAME });
 };
 
 exports.play = function (req, res) {
