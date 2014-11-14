@@ -254,31 +254,33 @@ function AppViewModel() {
     self.nextMovie(null);
   });
 
+
   // Leap Motion
-    if(typeof(Leap) !== 'undefined') {
-        var controller = new Leap.Controller({enableGestures: true});
+  if (typeof(Leap) !== 'undefined') {
+    console.log('leap');
+    var controller = new Leap.Controller({enableGestures: true});
 
-        controller.on('gesture', function (gesture){
-            if(gesture.type === 'swipe'){
-                handleSwipe(gesture);
-            }
-        });
+    controller.on('gesture', function(gesture) {
+      if (gesture.type === 'swipe') {
+        handleSwipe(gesture);
+      }
+    });
 
-        function handleSwipe (swipe){
-            var startFrameID;
-            if(swipe.state === 'stop'){
-                if (swipe.direction[0] > 0){
-                    //this means that the swipe is to the right direction
-                    self.onRight();
-                }else{
-                    //this means that the swipe is to the left direction
-                    self.onLeft();
-                }
-            }
+    function handleSwipe(swipe){
+      var startFrameID;
+      if (swipe.state === 'stop'){
+        if (swipe.direction[0] > 0){
+          //this means that the swipe is to the right direction
+          self.onRight();
+        } else {
+          //this means that the swipe is to the left direction
+          self.onLeft();
         }
-
-        controller.connect();
+      }
     }
+
+    controller.connect();
+  }
 }
 
 module.exports = AppViewModel;
