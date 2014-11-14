@@ -9,7 +9,7 @@ exports.index = function (req, res){
   res.render('splash', { title: constants.APP_NAME });
 };
 
-exports.play = function (req, res) {
+exports.app = function (req, res) {
   if (!req.user) {
     res.redirect('/');
   } else {
@@ -27,5 +27,5 @@ exports.authError = function(req, res) {
 };
 
 exports.authSuccess = function(req, res) {
-  res.redirect('/play');
+  res.redirect('/app');
 };
