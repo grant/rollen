@@ -4,16 +4,17 @@ block css
 block js
     script(src='js/pages/app.js')
 block content
-    span.access_token= accessToken
+    span.access-token= accessToken
     .wrapper
         .left-pad
         .app
             .content
                 .card.card-one(data-bind="visible: showFirstCard()")
-                    .card-selected
-                    .card-video
+                    .card-selected(data-bind="visible: showDetails()")
+                    .card-video(data-bind="visible: !showDetails()")
+
                 .card.card-two(data-bind="visible: !showFirstCard()")
-                    .card-selected
-                    .card-video
+                    .card-selected(data-bind="visible: showDetails()")
+                    .card-video(data-bind="visible: !showDetails()")
         .right-pad
         .clear-fix
