@@ -1,6 +1,7 @@
 var constants = require('./../config/constants.js');
 var User = require('./../models/user');
 var UserLikes = require('./../models/user_likes');
+var request = require('request');
 
 /*
  * GET home page.
@@ -137,12 +138,11 @@ exports.makeEvent = function(req, res) {
       url: 'https://graph.facebook.com/v1.0/me/events',
       method: 'POST',
       form: {
+        'access_token': req.user.accessToken,
         'name': title,
-        start_time: date
+        'start_time': date
       }
     }, function(err, resp, body) {
-        console.log(err);
-        console.log(resp);
         if (!err && resp.statusCode === 200) {
           body = JSON.parse(body);
           var event_id = body.id;
@@ -162,8 +162,8 @@ exports.recommend = function(req, res) {
   movie.recommended_by = req.user.name;
 
   User.findOne({fb_id: to}, function(err, to_user) {
-    user.queue = [movie].concat(user.queue);
-    user.save(function(err, n) {
+    to_user.queue = [movie].concat(to_user.queue || []);
+    to_user.save(function(err, n) {
       if (!n) {
         res.json({
           response: 'fail'
@@ -192,4 +192,10 @@ exports.search = function(req, res) {
     'results': search_results
   });
 
+}
+
+exports.allLikes = function(req, res) {
+  res.json({
+    'result': req.user.movie_likes
+  });
 }

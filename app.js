@@ -72,6 +72,9 @@ app.post('/recommend', auth.requiresLogin, routes.recommend);
 // find users matching a search criteria on name
 app.get('/search', auth.requiresLogin, routes.search);
 
+// all movies i liked
+app.get('/all_likes', auth.requiresLogin, routes.allLikes);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
