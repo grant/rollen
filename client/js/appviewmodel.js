@@ -100,9 +100,17 @@ function AppViewModel() {
   // Event handler for liking a movie
   self.onLikeMovie = function() {
     flipCard();
-    //       server.likeMovie(self.currentMovie(), function(success) {
-    //         flipCard();
-    //       });
+    server.likeMovie(self.currentMovie(), function(success) {
+      flipCard();
+    });
+  };
+
+  // Event handler for liking a movie
+  self.onCreateEvent = function() {
+    server.makeEvent(self.makeEventName, function(event) {
+      console.log(event);
+      // TODO: show event url
+    });
   };
 
   // Event handler for getting new movies
