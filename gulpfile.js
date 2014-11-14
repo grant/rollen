@@ -32,7 +32,7 @@ gulp.task('css', function () {
 gulp.task('js', function () {
   gulp.src(src.js_index)
     .pipe(browserify())
-    .pipe(uglify())
+    //.pipe(uglify())
     .pipe(gulp.dest(dest.js));
 });
 

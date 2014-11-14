@@ -1,3 +1,5 @@
+var $ = require('jquery');
+
 function FlashMessage(domId, delayTime) {
     var self = this;
     var element = document.getElementById(domId);
@@ -5,6 +7,11 @@ function FlashMessage(domId, delayTime) {
     var isFlashing = false;
 
     self.setMessage = function(str) {
+        if(isFlashing) {
+            isFlashing = false;
+            $(element).stop();
+            $(element).hide();
+        }
         element.innerHTML = str;
     };
 

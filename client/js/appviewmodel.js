@@ -64,7 +64,6 @@ function AppViewModel() {
 
     // PUBLIC
     //-------------
-    self.currentFriends = ko.observableArray([]);
     self.currentMovie = ko.observable(null);
     self.showFirstCard = ko.observable(true);
     self.showDetails = ko.observable(false);
@@ -95,6 +94,10 @@ function AppViewModel() {
 
     // INIT
     //-------------
+
+    flash.setMessage("Loading...");
+    flash.flash();
+
     $(document).keydown(function (e) {
         if(e.which == LEFT) {
             self.onLeft();
@@ -105,7 +108,8 @@ function AppViewModel() {
     });
 
     server.getNextTrailer(function(movie) {
-        // TODO: Stop future loading screen
+        // Stop loading screen
+        $('.wrapper').show();
 
         // Load the movie into the queue
         self.onNewMovie(movie);
@@ -113,7 +117,11 @@ function AppViewModel() {
         // Grab another movie (preload)
         server.getNextTrailer(function(movie) {
             // Load the movie into the queue
+
             self.onNewMovie(movie);
+
+            flash.setMessage("Welcome!");
+            flash.flash();
         });
     });
 }
