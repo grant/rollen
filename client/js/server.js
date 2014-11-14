@@ -1,4 +1,5 @@
 var Movie = require('./movie');
+var $ = require('jquery');
 
 function Server(url) {
     var self = this;

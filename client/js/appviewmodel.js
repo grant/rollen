@@ -59,11 +59,10 @@ function AppViewModel() {
    self.showDetails = ko.observable(false);
    self.makeEventName = ko.observable("");
 
-   self.onNewMovie = function(movie) {
+   self.onNewMovies = function(movie) {
      // Push in the new movie and update the current pointer
-     movies.push(movie);
-     self.currentMovie(movies[movies.length - 1]);
-     console.log(movies);
+     movies = movies.concat(movie);
+     self.currentMovie(movies[0]);
    };
 
    self.onRight = function() {
@@ -96,20 +95,9 @@ function AppViewModel() {
      return true;
    });
 
-   server.getNextTrailer(function(movie) {
-     // Stop loading screen
-     $('.wrapper').css({'top' : -$('.wrapper').height() / 2});
-     $('.wrapper').show();
-
+   server.getNextTrailers(function(movies) {
      // Load the movie into the queue
-     self.onNewMovie(movie);
-
-     // Grab another movie (preload)
-     server.getNextTrailer(function(movie) {
-       // Load the movie into the queue
-
-       self.onNewMovie(movie);
-     });
+     self.onNewMovies(movies);
    });
 }
 
