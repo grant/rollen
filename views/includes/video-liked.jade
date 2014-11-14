@@ -8,4 +8,4 @@ h2(data-bind="text: title")
 .make-event
     h3 create movie night event
     input.event-name(data-bind="value: $root.makeEventName")
-    button.btn-dark(data-bind="click: onCreateEvent") go
+    button.btn-dark(data-bind="click: $root.onCreateEvent") go
