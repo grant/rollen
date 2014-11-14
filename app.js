@@ -1,30 +1,62 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+var express = require('express'),       // the main ssjs framework
+    routes = require('./routes'),       // by default, brings in routes/index.js
+    // user = require('./routes/user'),
+    path = require('path'),             // for pathn manipulation
+    db = require('./config/db'),        // database connection
+    passport = require('passport'),     // for user authentication
+    auth = require('./config/middlewares/authorization'), // helper methods for authentication
+    constants = require('./config/constants'),
+    app = express(),                    // create an express app
+    RedisStore = require('connect-redis')(express); // for persistent sessions
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
 
-var app = express();
+var redis;
+var redisURI = process.env.MONGOLAB_URI || 'redis://redistogo:57028c3a314873902459d1407db1657e@greeneye.redistogo.com:11571/';
+if (redisURI) {
+    console.log("using reditogo");
+    rtg   = require('url').parse(redisURI);
+    redis = require('redis').createClient(rtg.port, rtg.hostname);
+    redis.auth(rtg.auth.split(':')[1]); // auth 1st part is username and 2nd is password separated by ":"
+} else {
+    console.log("using local redis");
+    redis = require("redis").createClient();
+}
 
-app.set('port', process.env.PORT || 3000);
+app.configure(function(){
+    app.set('port', process.env.PORT || 8888);
+    app.set('views', __dirname + '/views');
+    app.set('view engine', 'jade');
+    app.use(function(req, res, next) {
+        if (req.url != '/favicon.ico') {
+            return next();
+        } else {
+            res.status(200);
+            res.header('Content-Type', 'image/x-icon');
+            res.header('Cache-Control', 'max-age=4294880896');
+            res.end();
+        }
+    });
+    app.use(express.static(path.join(__dirname, 'public')));
+    app.use(express.logger('dev'));
+    app.use(express.bodyParser());
+    app.use(express.methodOverride());
+    app.use(express.cookieParser('keyboard cat'));
+    app.use(express.session({
+        secret: 'YOLO',
+        store: new RedisStore({ client: redis })
+    }));
+    app.use(passport.initialize());
+    app.use(passport.session());
+    app.use(app.router);
+});
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.get('/', routes.index);
+app.get('/play', routes.play);
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.get('/auth/facebook', passport.authenticate("facebook", {scope: ['email', 'user_likes', 'create_event']}));
+app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/auth/error' }), routes.authSuccess);
+app.get('/auth/error', routes.authError);
 
-app.use('/', routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -57,10 +89,10 @@ app.use(function(err, req, res, next) {
     });
 });
 
+require('./config/pass.js')(passport);
 
-var server = app.listen(app.get('port'), function () {
-  var host = server.address().address;
-  var port = server.address().port;
+var server = require('http').createServer(app);
+server.listen(app.get('port'));
 
-  console.log('Example app listening at http://%s:%s', host, port);
-});
+console.log('Express server listening on port ' + app.get('port'));
+
