@@ -149,6 +149,12 @@ function AppViewModel() {
     self.showOverlay(false);
   };
 
+  self.onSetMovie = function(movie) {
+      console.log('set movie');
+      console.log(movie);
+    getViewableMovieObv()(movie);
+  };
+
   self.onSearchFriend = function() {
     console.log(self.partialFriendName());
     if (self.partialFriendName() != "") {
