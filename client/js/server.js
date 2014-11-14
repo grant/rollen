@@ -40,6 +40,7 @@ function Server(url) {
     };
 
     self.makeEvent = function(eventTitle, callback) {
+        console.log(eventTitle);
         $.post('/make_event', {title : eventTitle}, function(data) {
             // URL OF THE EVENT
             callback(data.event);
