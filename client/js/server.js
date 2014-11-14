@@ -3,9 +3,16 @@ var Movie = require('./movie');
 function Server(url) {
     var self = this;
 
-    self.getNextTrailer = function(callback) {
-        // TODO: SERVER COMMAND THEN CONSTRUCT NEW MOVIE OBJECT AND RETURN THROUGH CALLBACK
-        callback(new Movie());
+    self.getNextTrailers = function(callback) {
+        $.get('/get_movies', function(data) {
+            var movies = [];
+            for (var i = 0; i < data.queue.length; i++) {
+                var movie = data.queue[i];
+                movies.push(new Movie(movie.title, movie.trailer));
+            }
+
+            callback(movies);
+        });
     };
 }
 
