@@ -85,11 +85,12 @@ function AppViewModel() {
 
   // Shows the movie details
   var flipCard = function() {
+    var rotationSpeed = 10;
     function rotateForward () {
       // manually rotate until done
       var rotation = 0;
       var id = setInterval(function () {
-        rotation += 5;
+        rotation += rotationSpeed;
         $('.film-roll').css('transform', 'rotateY('+rotation+'deg)');
         if (rotation > 90) {
           clearInterval(id);
@@ -105,7 +106,7 @@ function AppViewModel() {
       // manually rotate until done
       var rotation = 90;
       var id = setInterval(function () {
-        rotation -= 5;
+        rotation -= rotationSpeed;
         $('.film-roll').css('transform', 'rotateY('+rotation+'deg)');
         if (rotation < 0) {
           clearInterval(id);
