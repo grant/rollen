@@ -247,3 +247,49 @@ GET `/search?text=<name>`
             }
         ]
     }
+
+### Get all liked movies
+
+GET `/all_likes'
+
+**Output:**
+
+    {
+        result: [
+            {
+            tmdb_id: "13995",
+            imdb_id: "tt0103923",
+            title: "Captain America",
+            trailer: "http://youtube.com/watch?v=cs8rFsmhNTc",
+            url: "http://trakt.tv/movie/captain-america-1990",
+            release_date: "661161600",
+            tagline: "Frozen in the ice for decades, Captain America is freed to battle against arch-criminal, The Red Skull.",
+            _id: "5465de3e02ad3f329bb9de29",
+            recommended_by: "us",
+            actors: [
+                "Matt Salinger",
+                "Ronny Cox",
+                "Scott Paulin",
+                "Ned Beatty",
+                "Darren McGavin",
+                "Michael Nouri",
+                "Kim Gillingham",
+                "Melinda Dillon",
+                "Bill Mumy",
+                "Francesca Neri",
+                "Carla Cassola",
+                "Massimilio Massimi",
+                "Wayde Preston",
+                "Norbert Weisser",
+                "Garette Ratliff Henson"
+            ],
+            directors: [
+                "Albert Pyun"
+            ],
+            genres: [
+                "Action",
+                "Science Fiction"
+                ]
+            }
+        ]
+    }

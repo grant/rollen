@@ -193,3 +193,9 @@ exports.search = function(req, res) {
   });
 
 }
+
+exports.allLikes = function(req, res) {
+  res.json({
+    'result': req.user.movie_likes
+  });
+}
