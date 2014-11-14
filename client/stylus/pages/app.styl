@@ -37,15 +37,20 @@ body
       background-color white
       border 10px solid black
 
-      .card-area, .pad
+      .card-area, .pad-left, .pad-right
         display inline-block
         float left
         height 100%
 
       padWidth = 50px
-      .pad
+      .pad-left
         width padWidth
-        background url('../img/filmside.png')
+        background url('../img/filmside.png') left
+        background-repeat repeat-y
+        background-size contain
+      .pad-right
+        width padWidth
+        background url('../img/filmside.png') right
         background-repeat repeat-y
         background-size contain
 
