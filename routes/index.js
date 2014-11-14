@@ -106,7 +106,8 @@ exports.getFriendsWhoLike = function(req, res) {
   var friends_result = [];
 
   var req_user_friend_ids = [];
-  for (var f in req.user.friends) {
+  for (var i = 0; i < req.user.friends.length; i++) {
+    var f = req.user.friends[i];
     req_user_friend_ids.push(f.id);
   }
 
