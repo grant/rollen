@@ -188,3 +188,16 @@ GET `/friends_like_too?movie_tmdb=<tmdb_id>`
   ]
 }
 
+### Make an event
+
+POST `/make_event`
+
+Body:
+
+title: title of the event
+
+Response:
+
+{
+  'event': 'https://www.facebook.com/events/3242543545425425'
+}
