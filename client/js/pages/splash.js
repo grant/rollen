@@ -2,7 +2,7 @@ var $ = require('jquery');
 var Kernel = require('../components/splash/kernel');
 var raf = require('raf');
 
-var CREATE_POPCORN_SPEED = 1000; // ms
+var CREATE_POPCORN_SPEED = 400; // ms
 
 $(function () {
   // Setup
