@@ -71,10 +71,10 @@ module.exports = function(user, callback) {
         user.queue = data;
         user.save(function(error, newUser) {
             if (error) {
-                callback(null);
+                return callback(null);
             }
 
-            callback(newUser);
+            return callback(newUser);
         });
     });
 };
