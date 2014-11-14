@@ -1,14 +1,26 @@
-var express = require('express');
-var router = express.Router();
+var constants = require('./../config/constants.js');
+var User = require('./../models/user.js');
 
-/* GET home page. */
-router.get('/', function(req, res) {
-  res.render('splash');
-});
+/*
+ * GET home page.
+ */
 
-// TODO: fix later
-router.get('/app', function(req, res) {
-    res.render('app');
-});
+exports.index = function (req, res){
+  res.render('index', { title: constants.APP_NAME });
+};
 
-module.exports = router;
+exports.play = function (req, res) {
+  console.log(req.user);
+  User.findOneById(req.user.id, function(user, err) {
+    console.log('..........');
+    console.log(req.user);
+  });
+};
+
+exports.authError = function(req, res) {
+  res.render('index', { success: 'false' });
+};
+
+exports.authSuccess = function(req, res) {
+  res.redirect('/play');
+};

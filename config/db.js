@@ -1,0 +1,34 @@
+// Established database connection
+
+var mongoose = require('mongoose');
+
+var dbURI = process.env.MONGOLAB_URI || 'mongodb://heroku_app31579830:kmiig27494qe73m9r5q72akrmc@ds051960.mongolab.com:51960/heroku_app31579830/';
+mongoose.connect(dbURI);
+
+// when connected with db
+mongoose.connection.on('connected', function() {
+	console.log('Connected to db ' + dbURI);
+});
+
+// some error when connecting
+mongoose.connection.on('error', function(err) {
+	console.log('Connection error: ' + err);
+});
+
+// disconnected from db
+mongoose.connection.on('disconnected', function() {
+	console.log('Disconnected from DB.');
+});
+
+// If the Node process ends, close the Mongoose connection
+process.on('SIGINT', function() {
+	mongoose.connection.close(function() {
+		console.log('Disconnected from DB by app.');
+		process.exit(0);
+	});
+});
+
+// bring in all models
+require('./../models/user');
+require('./../models/user_likes');
+require('./../models/upcoming_movies');
