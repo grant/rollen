@@ -66,6 +66,8 @@ app.get('/friends_like_too', auth.requiresLogin, routes.getFriendsWhoLike);
 // make the event for this movie
 app.post('/make_event', auth.requiresLogin, routes.makeEvent);
 
+// recommend a movie to another user
+app.post('/recommend', auth.requiresLogin, routes.recommend);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

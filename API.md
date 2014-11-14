@@ -201,3 +201,26 @@ Response:
 {
   'event': 'https://www.facebook.com/events/3242543545425425'
 }
+
+### Recommend a movie to a user
+
+POST `/recommend`
+
+Body:
+
+to: fb_id of user to recommend to
+movie: full movie object
+
+**Output:**
+
+If failure:
+
+    {
+      response: 'fail'
+    }
+
+If passes:
+
+    {
+      response: 'fail'
+    }
