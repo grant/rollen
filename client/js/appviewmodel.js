@@ -27,12 +27,12 @@ function AppViewModel() {
 
    var maybeGetMoreMovies = function() {
        if (movies.length < 6) {
-//           server.getNextTrailers(function(movie) {
-//               // Update current movie and shift in the new movie
-//               self.onNewMovies(movie);
-//               // Update current movie and shift in the new movie
-//               self.onNewMovie(movie);
-//           });
+           server.getNextTrailers(function(movie) {
+               // Update current movie and shift in the new movie
+               self.onNewMovies(movie);
+               // Update current movie and shift in the new movie
+               self.onNewMovie(movie);
+           });
        }
    };
 
@@ -117,10 +117,10 @@ function AppViewModel() {
      return true;
    });
 
-//   server.getNextTrailers(function(movies) {
-//     // Load the movie into the queue
-//     self.onNewMovies(movies);
-//   });
+   server.getNextTrailers(function(movies) {
+     // Load the movie into the queue
+     self.onNewMovies(movies);
+   });
 }
 
 module.exports = AppViewModel;
