@@ -6,6 +6,7 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 
 // bring in the schema for user
 var User = require('mongoose').model('User'),
+    UserLikes = require('mongoose').model('UserLikes')
     Constants = require('./constants');
 var request = require('request');
 var async = require('async');
@@ -69,17 +70,16 @@ module.exports = function (passport) {
         callback(null, null);
       } else {
         body = JSON.parse(body);
-        var tmdb_id = body[0].tmdb_id;
+        var tmdb_id = ''+body[0].tmdb_id;
         request('http://api.trakt.tv/movie/summary.json/'+Constants.TRAK_KEY+'/'+tmdb_id,
           function(err, resp, body) {
             body = JSON.parse(body);
 
             async.mapLimit(body.people.directors, 10, getDirectorNames, function(err, directors) {
               async.mapLimit(body.people.actors, 10, getActorNames, function(err, actors) {
-                console.log(directors);
                 callback(null, {
                   tmdb_id: tmdb_id,
-                  tmdb_id: body.imdb_id,
+                  imdb_id: body.imdb_id,
                   genres: body.genres,
                   title: body.title,
                   directors: directors,
@@ -98,6 +98,10 @@ module.exports = function (passport) {
 
   function trailerExists(movie, callback) {
     callback(!movie || movie.trailer !== "");  // return true if trailer exists
+  }
+
+  function getMovieId(movie, callback) {
+    callback(null, movie.tmdb_id);
   }
 
   // Logic for facebook strategy
@@ -133,7 +137,24 @@ module.exports = function (passport) {
                 }).save(function(err, newUser) {
                   if (err) return done(err);
                   // also save in user_likes
-                  return done(null, newUser);
+                  UserLikes.findOne({'fb_id': profile.id}, function(err, user) {
+                    async.mapLimit(results, 10, getMovieId, function(err, moviesIds) {
+                      if (!user) {
+                        new UserLikes({
+                          fb_id: profile.id,
+                          movie_likes: moviesIds
+                        }).save(function(err, n) {
+                          return done(null, newUser);
+                        });
+                      } else {
+                        // update the list
+                        user.movie_likes.concat(moviesIds);
+                        user.save(function(err, n) {
+                          return done(null, newUser);
+                        });
+                      }
+                    });
+                  });
                 });
               });
             });
