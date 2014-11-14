@@ -4,10 +4,10 @@ var User = require('./../models/user');
 var UserLikes = require('./../models/user_likes');
 var UpcomingMovies = require('./../models/upcoming_movies');
 
-var GENRE_AMOUNT = 1;
+var GENRE_AMOUNT = 2;
 var DIRECTOR_AMOUNT = 1;
 var ACTOR_AMOUNT = 1;
-var FRIEND_AMOUNT = 1;
+var FRIEND_AMOUNT = 10;
 
 function computeSimilarity(array, otherArray, score) {
     var result = 0;
@@ -71,10 +71,10 @@ module.exports = function(user, callback) {
         user.queue = data;
         user.save(function(error, newUser) {
             if (error) {
-                callback(null);
+                return callback(null);
             }
 
-            callback(newUser);
+            return callback(newUser);
         });
     });
 };

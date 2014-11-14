@@ -36,17 +36,26 @@ function AppViewModel() {
        }
    };
 
+   var nextMovie = function() {
+     self.firstMovie(!self.firstMovie());
+     movies.shift();
+     maybeGetMoreMovies();
+     if (self.firstMovie()) {
+       self.currentMovie(movies[0]);
+       self.nextMovie(movies[1]);
+     } else {
+       self.currentMovie(movies[1]);
+       self.nextMovie(movies[0]);
+     }
+   };
+
    var nextCard = function() {
      disableSwipe = true;
      console.log('next card');
      $('.film-roll').animate({'top' : '0'}, 1000, function() {
        console.log('New card down: done');
 
-       movies.shift();
-       maybeGetMoreMovies();
-
-       self.currentMovie(movies[0]);
-       self.nextMovie(movies[1]);
+       nextMovie();
 
        $('.film-roll').css({'top' : '-100%'});
        $('.frame').last().prepend('.film-roll');
@@ -62,6 +71,7 @@ function AppViewModel() {
    //-------------
    self.currentMovie = ko.observable(null);
    self.nextMovie = ko.observable(null);
+   self.firstMovie = ko.observable(true);
    self.showDetails = ko.observable(false);
    self.makeEventName = ko.observable("");
 
@@ -71,7 +81,7 @@ function AppViewModel() {
 
      // Fill in friend fields for each movie
      for(var i = 0; i < movie.length; i++) {
-         server.getFriendsWhoLiked(movie[i].data, function(friends) {
+         server.getFriendsWhoLiked(movie[i], function(friends) {
             movie[i].setFriends(friends);
          });
      }
