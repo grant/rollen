@@ -1,20 +1,25 @@
 var constants = require('./../config/constants.js');
-var User = require('./../models/user.js');
+var User = require('./../models/user');
 
 /*
  * GET home page.
  */
 
 exports.index = function (req, res){
-  res.render('index', { title: constants.APP_NAME });
+  res.render('splash', { title: constants.APP_NAME });
 };
 
-exports.play = function (req, res) {
-  console.log(req.user);
-  User.findOneById(req.user.id, function(user, err) {
-    console.log('..........');
-    console.log(req.user);
-  });
+exports.app = function (req, res) {
+  if (!req.user) {
+    res.redirect('/');
+  } else {
+    res.render('app', {
+      title: constants.APP_NAME,
+      name: req.user.name,
+      photo: req.user.photo,
+      accessToken: req.user.accessToken
+    });
+  }
 };
 
 exports.authError = function(req, res) {
@@ -22,5 +27,5 @@ exports.authError = function(req, res) {
 };
 
 exports.authSuccess = function(req, res) {
-  res.redirect('/play');
+  res.redirect('/app');
 };

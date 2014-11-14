@@ -51,7 +51,7 @@ app.configure(function(){
 });
 
 app.get('/', routes.index);
-app.get('/play', routes.play);
+app.get('/app', routes.app);
 
 app.get('/auth/facebook', passport.authenticate("facebook", {scope: ['email', 'user_likes', 'create_event']}));
 app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/auth/error' }), routes.authSuccess);
@@ -93,6 +93,4 @@ require('./config/pass.js')(passport);
 
 var server = require('http').createServer(app);
 server.listen(app.get('port'));
-
 console.log('Express server listening on port ' + app.get('port'));
-
