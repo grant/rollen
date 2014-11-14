@@ -103,3 +103,25 @@ exports.getFriendsWhoLike = function(req, res) {
     });
   });
 }
+
+exports.makeEvent = function(req, res) {
+  var title = req.body.title;
+  require('./../helpers/date').nextSaturday(function(date) {
+    request({
+      url: 'https://graph.facebook.com/v1.0/me/events',
+      method: 'POST',
+      form: {
+        'name': title,
+        start_time: date
+      }
+    }, function(err, resp, body) {
+        if (!err && resp.statusCode === 200) {
+          body = JSON.parse(body);
+          var event_id = body.id;
+          res.json({
+            'event': 'https://www.facebook.com/events/' + event_id
+          });
+        }
+    });
+  });
+}
