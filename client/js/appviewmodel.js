@@ -30,8 +30,6 @@ function AppViewModel() {
            server.getNextTrailers(function(movie) {
                // Update current movie and shift in the new movie
                self.onNewMovies(movie);
-               // Update current movie and shift in the new movie
-               self.onNewMovie(movie);
            });
        }
    };
@@ -58,7 +56,7 @@ function AppViewModel() {
        nextMovie();
 
        $('.film-roll').css({'top' : '-100%'});
-       $('.frame').last().prepend('.film-roll');
+       $('.frame').last().before($('.frame').first());
        disableSwipe = false;
      });
    };
