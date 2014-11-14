@@ -36,8 +36,7 @@ function AppViewModel() {
 
     var nextCard = function() {
         disableSwipe = true;
-        getCurrentCard().animate({'top' : '100%'}, 1000, function() {
-            getCurrentCard().css({'top' : '-100%;'});
+        $('.wrapper').animate({'top' : '0'}, 1000, function() {
             console.log('Moved card off screen: done');
 
             self.showFirstCard(!self.showFirstCard());
@@ -109,6 +108,7 @@ function AppViewModel() {
 
     server.getNextTrailer(function(movie) {
         // Stop loading screen
+        $('.wrapper').css({'top' : -$('.wrapper').height() / 2})
         $('.wrapper').show();
 
         // Load the movie into the queue

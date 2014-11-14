@@ -3,6 +3,7 @@
 
 body
   background-color: dark-red
+  overflow hidden
 
 .layer
   position absolute
@@ -48,22 +49,30 @@ body
     .login-area
       color white
       text-align center
+      cursor pointer
 
       &:hover
         .login-link
           color gray
-        .title-area .title svg
+        .image-area svg #fillpath
           fill gray
 
+      // Transitions
       .login-link
-        cursor pointer
+        transition color transition-speed
+      .image-area svg #fillpath
+        transition fill transition-speed
 
       .image-area
         display inline-block
         margin 0 20px
 
-          // width 100px
-          // height 100px
+        svg
+          width 100px
+          height 100px
+
+          #fillpath
+            fill white
 
       .title-area
         display inline-block
