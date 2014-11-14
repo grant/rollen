@@ -43,6 +43,9 @@ function AppViewModel() {
      } else {
        self.currentMovie(movies[1]);
      }
+     console.log(self.currentMovie());
+     console.log(self.nextMovie());
+     console.log(movies);
    };
 
    var nextCard = function() {
@@ -128,6 +131,7 @@ function AppViewModel() {
    server.getNextTrailers(function(movies) {
      // Load the movie into the queue
      self.onNewMovies(movies);
+     nextMovie();
    });
 }
 
