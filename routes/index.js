@@ -47,4 +47,33 @@ exports.getMovies = function(req, res) {
     });
 
   });
-}
+};
+
+exports.movieLiked = function(req, res) {
+  // get the movie object that was liked
+  // update list in user_likes
+  // add the liked movie in movie_likes
+  // re-rank the queue
+  var liked_movie = req.body.movie;
+  UserLikes.findOne({fb_id: req.user.fb_id}, function(err, userlikes) {
+    userlikes.movie_likes.push(movie.tmdb_id);
+    userlikes.save(function(err, n) {
+      User.findOne({fb_id: req.user.fb_id}, function(err, user) {
+        user.movie_likes.push(movie);
+        user.save(function(err, n) {
+          require('./../helpers/rank')(function(newUser) {
+            if (!newUser) {
+              res.json({
+                response: 'fail'
+              });
+            } else {
+              res.json({
+                response: 'ok'
+              });
+            }
+          });
+        });
+      });
+    });
+  });
+};
