@@ -58,7 +58,7 @@ function AppViewModel() {
        nextMovie();
 
        $('.film-roll').css({'top' : '-100%'});
-       $('.frame').last().prepend('.film-roll');
+       $('.frame').last().before($('.frame').first());
        disableSwipe = false;
      });
    };
