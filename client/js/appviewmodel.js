@@ -133,7 +133,21 @@ function AppViewModel() {
   self.makeEventName = ko.observable("");
   self.instaFriendList = ko.observableArray([]);
   self.partialFriendName = ko.observable("");
+  self.likedMovies = ko.observableArray([]);
+  self.showOverlay = ko.observable(false);
 
+  self.onClickProfile = function() {
+    self.showOverlay(true);
+    server.getLikes(function(data) {
+        console.log('GOT LIKES');
+        console.log(data);
+      self.likedMovies(data);
+    });
+  };
+
+  self.onCloseOverlay = function() {
+    self.showOverlay(false);
+  };
 
   self.onSearchFriend = function() {
     console.log(self.partialFriendName());

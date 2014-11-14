@@ -1,0 +1,4 @@
+.overlay(data-bind="visible: showOverlay(), click: onCloseOverlay")
+    .liked-movies(data-bind="foreach: likedMovies")
+        .liked-movie
+            img.thumb(data-bind="attr: {src: posterUrl}")
