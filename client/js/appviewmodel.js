@@ -34,6 +34,14 @@ function AppViewModel() {
       }
   };
 
+    var getHiddenMovieObv = function() {
+        if (self.firstMovie()) {
+            return self.nextMovie;
+        } else {
+            return self.currentMovie;
+        }
+    };
+
   // Get more movies if below threshold
   var maybeGetMoreMovies = function() {
     if (movies.length < 6) {
@@ -53,9 +61,7 @@ function AppViewModel() {
     maybeGetMoreMovies();
     if (!self.firstMovie()) {
       self.nextMovie(movies[0]);
-      self.currentMovie(null);
     } else {
-      self.nextMovie(null);
       self.currentMovie(movies[0]);
     }
     // console.log(self.currentMovie());
@@ -73,13 +79,12 @@ function AppViewModel() {
     $('.make-event-button').show();
     self.instaFriendList([]);
     self.partialFriendName("");
-
+    nextMovie();
     $('.film-roll').animate({
       'top': '0'
     }, 1000, function() {
       console.log('New card down: done');
-      nextMovie();
-
+      getHiddenMovieObv()(null);
       $('.film-roll').css({
         'top': '-100%'
       });
