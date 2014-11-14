@@ -162,7 +162,7 @@ exports.recommend = function(req, res) {
   movie.recommended_by = req.user.name;
 
   User.findOne({fb_id: to}, function(err, to_user) {
-    to_user.queue = [movie].concat(to_user.queue);
+    to_user.queue = [movie].concat(to_user.queue || []);
     to_user.save(function(err, n) {
       if (!n) {
         res.json({

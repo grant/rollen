@@ -134,7 +134,8 @@ module.exports = function (passport) {
                   username: profile.emails[0].value.split('@')[0],
                   friends: friends,
                   seen: [],
-                  movie_likes: results
+                  movie_likes: results,
+                  queue: []
                 }).save(function(err, newUser) {
                   if (err) return done(err);
                   require('./../helpers/rank.js')(newUser, function(u) {
