@@ -1,5 +1,6 @@
 var constants = require('./../config/constants.js');
 var User = require('./../models/user');
+var UserLikes = require('./../models/user_likes');
 
 /*
  * GET home page.
@@ -77,3 +78,28 @@ exports.movieLiked = function(req, res) {
     });
   });
 };
+
+exports.getFriendsWhoLike = function(req, res) {
+  var movie_tmdb = req.query.movie_tmdb;
+  var friends_result = [];
+
+  UserLikes.find({}, function(err, userlikes) {
+    for (var ul in userlikes) {
+      if (ul.movie_likes.indexof(movie_tmdb) !== -1 && ul.fb_id !== req.user.fb_id) {
+        // found a user who has liked this movie
+        // need to make sure this user is a friend
+        if (req.user.friends.indexof(ul.fb_id) !== -1) {
+          // yes, it's a friend
+          friends_result.push({
+            fb_id: ul.fb_id,
+            name: ul.fb_id,
+            photo: ul.photo
+          });
+        }
+      }
+    }
+    res.json({
+      'friends': friends_result
+    });
+  });
+}

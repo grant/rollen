@@ -5,6 +5,8 @@ var mongoose = require('mongoose'),
 
 var userLikesSchema = new Schema({
   fb_id: String,  // fb id of a user
+  name: String,
+  photo: String,
   movie_likes: [String]  // tmdb id's of movies liked by user
 });
 

@@ -161,3 +161,30 @@ If passes:
     {
       response: 'fail'
     }
+
+### Get friends who have liked the given movie
+
+GET `/friends_like_too?movie_tmdb=<tmdb_id>`
+
+**Output:**
+
+{
+  'friends': [
+    {
+      fb_id: '1232',
+      name: 'Hello World',
+      photo: https://fb.ukcnfdf.com/fdsfds.jpg
+    },
+    {
+      fb_id: '1232',
+      name: 'Hello World',
+      photo: https://fb.ukcnfdf.com/fdsfds.jpg
+    },
+    {
+      fb_id: '1232',
+      name: 'Hello World',
+      photo: https://fb.ukcnfdf.com/fdsfds.jpg
+    }
+  ]
+}
+
