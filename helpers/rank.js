@@ -1,8 +1,8 @@
 // Ranks the upcoming movies against the user's likes (movie_likes)
 
-var User = require('./../modeles/user');
-var UserLikes = require('./../modeles/user_likes');
-var UpcomingMovies = require('./../modeles/upcoming_movies');
+var User = require('./../models/user');
+var UserLikes = require('./../models/user_likes');
+var UpcomingMovies = require('./../models/upcoming_movies');
 
 var GENRE_AMOUNT = 1;
 var DIRECTOR_AMOUNT = 1;
@@ -32,7 +32,7 @@ module.exports = function(user, callback) {
         for (var i = 0; i < movies.length; i++) {
             var movie = movies[i];
             // Check to see that this movie has not already been seen
-            if (user.seen.indexOf(movie) === -1) {
+            if (user.seen.indexof(movie) === -1) {
                 // movie_score = max_{a \in movie_likes} similarity(a, movie)
                 var bestScore = 0;
                 for (var j = 0; j < user.movie_likes.length; j++) {
@@ -69,6 +69,8 @@ module.exports = function(user, callback) {
         }
 
         user.queue = data;
+        console.log('--1---!------');
+        console.log(user.queue);
         user.save(function(error, newUser) {
             if (error) {
                 callback(null);

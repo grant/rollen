@@ -39,9 +39,7 @@ module.exports = function (passport) {
     request('https://graph.facebook.com/me?fields=friends&limit=1000&access_token='+accessToken,
       function(err, resp, body) {
         body = JSON.parse(body);
-        async.mapLimit(body.friends.data, 20, function(friend, cb) {return friend.id}, function(err, friends_ids) {
-          callback(friends_ids, body.friends.data);
-        });
+        callback(body.friends.data);
       });
   }
 
@@ -121,7 +119,7 @@ module.exports = function (passport) {
         if (err) return done(err);
         console.log("new user found");
 
-        getFriends(accessToken, function(friends_ids, friends) {
+        getFriends(accessToken, function(friends) {
           console.log("got " + friends.length + " friends");
           getLikedMovies(accessToken, profile.id, function(movies) {
             async.map(movies, getMovieData, function(err, result) {
@@ -134,8 +132,7 @@ module.exports = function (passport) {
                   name: profile.displayName,
                   photo: profile.photos[0].value,
                   username: profile.emails[0].value.split('@')[0],
-                  friends: friends_ids,
-                  friends_with_names: friends,
+                  friends: friends,
                   movie_likes: results
                 }).save(function(err, newUser) {
                   if (err) return done(err);
@@ -143,19 +140,29 @@ module.exports = function (passport) {
                   UserLikes.findOne({'fb_id': profile.id}, function(err, user) {
                     async.mapLimit(results, 10, getMovieId, function(err, moviesIds) {
                       if (!user) {
+                        console.log('no existing user');
                         new UserLikes({
                           fb_id: profile.id,
                           name: profile.displayName,
                           photo: profile.photos[0].value,
                           movie_likes: moviesIds
                         }).save(function(err, n) {
+                          console.log(n);
                           return done(null, newUser);
+                          // require('./../helpers/rank.js')(n, function(u) {
+                          //   console.log('done updating rank');
+                          //   return done(null, newUser);
+                          // });
                         });
                       } else {
                         // update the list
                         user.movie_likes.concat(moviesIds);
                         user.save(function(err, n) {
                           return done(null, newUser);
+                          // require('./../helpers/rank')(n, function(u) {
+                          //   console.log('done updating rank');
+                          //   return done(null, newUser);
+                          // });
                         });
                       }
                     });
