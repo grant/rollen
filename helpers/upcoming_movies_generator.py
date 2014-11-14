@@ -5,7 +5,9 @@ import json
 
 NOW_PLAYING_URL = "http://api.themoviedb.org/3/movie/now_playing?api_key=89cd5483c3ac6ccbf96482f05b8ca830"
 UPCOMING_URL = "http://api.themoviedb.org/3/movie/upcoming?api_key=89cd5483c3ac6ccbf96482f05b8ca830"
+POPULAR_URL = "http://api.themoviedb.org/3/movie/popular?api_key=89cd5483c3ac6ccbf96482f05b8ca830"
 SUMMARY_URL = "http://api.trakt.tv/movie/summary.json/e1d030d77ab29d7fb5a18abe94b7572d/"
+MAX_PAGES = 10
 
 def get_movie_results(url, page = 1):
     response = urllib2.urlopen(url + "&page=" + str(page))
@@ -51,33 +53,32 @@ def convert_data(data):
     result_string += "trailer: " + enclose_quotes(data["trailer"]) + ",\n"
     result_string += "url: " + enclose_quotes(data["url"]) + ",\n"
     result_string += "tagline: " + enclose_quotes(data["tagline"]) + ",\n"
+    result_string += "overview: " + enclose_quotes(data["overview"]) + ",\n"
+    result_string += "poster: " + enclose_quotes(data["poster"]) + ",\n"
     result_string += "release_date: " + enclose_quotes(data["released"])
 
     result_string += "}"
     return result_string
 
 # All of the movies
-entries = []
 print "var UpcomingMovies = require('../models/upcoming_movies');\n"
 
-# Get now playing movies
-results, total_pages = get_movie_results(NOW_PLAYING_URL, 1)
-entries += results
-
-for i in xrange(2, total_pages + 1):
-    results, total_pages = get_movie_results(NOW_PLAYING_URL, i)
+def process(url):
+    entries = []
+    # Get now playing movies
+    results, total_pages = get_movie_results(url, 1)
     entries += results
 
-# Get upcoming movies
-results, total_pages = get_movie_results(UPCOMING_URL, 1)
-entries += results
+    for i in xrange(2, min(MAX_PAGES, total_pages + 1)):
+        results, total_pages = get_movie_results(url, i)
+        entries += results
 
-for i in xrange(2, total_pages + 1):
-    results, total_pages = get_movie_results(UPCOMING_URL, i)
-    entries += results
+    return entries
+
+finals = process(POPULAR_URL) + process(UPCOMING_URL)
 
 # Get the summary for every movie in this
-movie_ids = set(entries)
+movie_ids = set(finals)
 for movie_id in movie_ids:
     try:
         response = urllib2.urlopen(SUMMARY_URL + str(movie_id))
