@@ -4,29 +4,30 @@ block css
 block js
     script(src='js/pages/app.js')
 block content
-    span.access-token= accessToken
-    #flash
-    .wrapper
-        .left-pad
-        .app
-            .content
-                .card.card-one(data-bind="visible: showFirstCard()")
-                    .card-selected(data-bind="visible: showDetails(), with: currentMovie()")
-                        h2 Invite your friends to watch this movie!
-                        .friends-that-like
-                            h3 These friends like this
-                            .friends(data-bind="foreach: friends")
-                                .friend
-                    .card-video(data-bind="visible: !showDetails(), with: currentMovie()")
-                        iframe.video-player(src="")
-                .card.card-two(data-bind="visible: !showFirstCard()")
-                    .card-selected(data-bind="visible: showDetails(), with: currentMovie()")
-                        h2 Invite your friends to watch this movie!
-                        .friends-that-like
-                            h3 These friends like this
-                            .friends(data-bind="foreach: friends")
-                                .friend
-                    .card-video(data-bind="visible: !showDetails(), with: currentMovie()")
-                        iframe.video-player(src="")
-        .right-pad
-        .clear-fix
+    .outer
+        span.access-token= accessToken
+        #flash
+        .wrapper
+            .left-pad
+            .app
+                .content
+                    .card.card-one(data-bind="visible: showFirstCard()")
+                        .card-selected(data-bind="visible: showDetails(), with: currentMovie()")
+                            h2 Invite your friends to watch this movie!
+                            .friends-that-like
+                                h3 These friends like this
+                                .friends(data-bind="foreach: friends")
+                                    .friend
+                        .card-video(data-bind="visible: !showDetails(), with: currentMovie()")
+                            iframe.video-player(src="")
+                    .card.card-two(data-bind="visible: !showFirstCard()")
+                        .card-selected(data-bind="visible: showDetails(), with: currentMovie()")
+                            h2 Invite your friends to watch this movie!
+                            .friends-that-like
+                                h3 These friends like this
+                                .friends(data-bind="foreach: friends")
+                                    .friend
+                        .card-video(data-bind="visible: !showDetails(), with: currentMovie()")
+                            iframe.video-player(src="")
+            .right-pad
+            .clear-fix

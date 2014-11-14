@@ -35,3 +35,4 @@ gulp
 - :tropical_fish: Gulp
 - :earth_americas: Facebook API
 - :floppy_disk: MongoDB
+- :cd: Redis
