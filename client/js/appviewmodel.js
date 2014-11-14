@@ -1,7 +1,6 @@
 var Server = require('./server');
 var Friend = require('./friend');
 var Movie = require('./movie');
-var FlashMessage = require('./flashmessage');
 var ko = require('knockout');
 var $ = require('jquery');
 
@@ -17,7 +16,6 @@ function AppViewModel() {
    var ACCESS_TOKEN = $('#access-token').text();
    var self = this;
    var server = new Server(API_URL);
-   var flash = new FlashMessage('flash', 2000);
 
    var disableSwipe = false;
 
@@ -38,6 +36,7 @@ function AppViewModel() {
 
    var nextCard = function() {
      disableSwipe = true;
+     console.log('next card');
      $('.film-roll').animate({'top' : '0'}, 1000, function() {
        console.log('New card down: done');
 
@@ -79,6 +78,7 @@ function AppViewModel() {
    };
 
    self.onLeft = function() {
+     console.log('LEFT');
      if (!disableSwipe) {
        nextCard();
      }
@@ -86,9 +86,6 @@ function AppViewModel() {
 
    // INIT
    //-------------
-
-   flash.setMessage("Loading...");
-   flash.flash();
 
    $(document).keydown(function (e) {
      if(e.which == LEFT) {
@@ -112,9 +109,6 @@ function AppViewModel() {
        // Load the movie into the queue
 
        self.onNewMovie(movie);
-
-       flash.setMessage("Welcome!");
-       flash.flash();
      });
    });
 }
