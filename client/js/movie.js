@@ -8,9 +8,19 @@ function Movie(title, youtubeUrl, data) {
         ko.observable("http://www.youtube.com/v/" + youtubeUrl.split('v=')[1] + "?autoplay=1&controls=0&showinfo=0");
     self.title = ko.observable(title);
     self.friends = ko.observableArray([]);
+    self.eventCreated = ko.observable(false);
+    self.eventPage = ko.observable("");
 
     self.setFriends = function(friends) {
         self.friends(friends);
+    };
+
+    self.setEventCreated = function(b) {
+        self.eventCreated(b);
+    };
+
+    self.setEventPage = function(s) {
+        self.eventPage(s);
     };
 }
 

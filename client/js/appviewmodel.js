@@ -64,6 +64,7 @@ function AppViewModel() {
     disableSwipe = true;
     console.log('next card');
     self.showDetails(false);
+    $('.make-event-button').show();
     $('.film-roll').animate({
       'top': '0'
     }, 1000, function() {
@@ -133,11 +134,16 @@ function AppViewModel() {
   };
 
   // Event handler for liking a movie
-  self.onCreateEvent = function() {
-    server.makeEvent(self.makeEventName, function(event) {
-      console.log(event);
-      // TODO: show event url
-    });
+  self.onCreateEvent = function(movie) {
+    if(self.makeEventName() != "") {
+      $('.make-event-button').hide();
+      server.makeEvent(self.makeEventName(), function(event) {
+          console.log(event);
+          // TODO: show event url
+          movie.setEventPage(event);
+          movie.setEventCreated(true);
+      });
+    }
   };
 
   // Event handler for getting new movies

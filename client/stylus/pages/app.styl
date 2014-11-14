@@ -52,18 +52,27 @@ body
       .card-area
         width 'calc(100% - %s)' % (padWidth * 2)
         .details
+          height: 100%;
           h2
             margin-top: 20px;
             margin-bottom: 20px;
           .friends-that-like
             width: calc(50% - 20px);
-            float: left;
+            float: left
             .friend
-              float: left;
+              display: inline-block;
           .make-event
             width: calc(50% - 20px);
             float: left;
             margin-left: 20px;
+            input, input:active
+              padding: 20px;
+              background: black;
+              color: white;
+              border: none;
+              font-size: 1.2em;
+            button
+              margin-left: 10px;
         .video
           .video-player
             width 100%
@@ -71,3 +80,16 @@ body
             background gray
             margin 0 auto
             margin-top 40px
+.clearfix
+  clear: both;
+
+.btn-dark
+  background-color: gray;
+  display: inline-block
+  padding: 20px;
+  font-size: 1.2em;
+  color: white;
+  font-family: BebasNeue;
+
+.btn-dark:hover
+  cursor: pointer;
