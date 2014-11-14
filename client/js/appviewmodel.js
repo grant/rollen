@@ -69,6 +69,7 @@ function AppViewModel() {
   var nextCard = function() {
     disableSwipe = true;
     console.log('next card');
+    self.showDetails(false);
     $('.film-roll').animate({
       'top': '0'
     }, 1000, function() {
@@ -146,7 +147,6 @@ function AppViewModel() {
   // Event handler for pressing right arrow key
   self.onLeft = function() {
     console.log('LEFT');
-    self.showDetails(false);
     if (!disableSwipe) {
       nextCard();
     }
