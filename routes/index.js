@@ -74,25 +74,31 @@ exports.movieLiked = function(req, res) {
   // re-rank the queue
   var liked_movie = req.body.movie;
   UserLikes.findOne({fb_id: req.user.fb_id}, function(err, userlikes) {
-    userlikes.movie_likes.push(liked_movie.tmdb_id);
-    userlikes.save(function(err, n) {
-      User.findOne({fb_id: req.user.fb_id}, function(err, user) {
-        user.movie_likes.push(liked_movie);
-        user.save(function(err, n) {
-          require('./../helpers/rank')(n, function(newUser) {
-            if (!newUser) {
-              res.json({
-                response: 'fail'
-              });
-            } else {
-              res.json({
-                response: 'ok'
-              });
-            }
+    if (userlikes.movies.likes.indexOf(liked_movie.tmdb_id) === -1) {
+      userlikes.movie_likes.push(liked_movie.tmdb_id);
+      userlikes.save(function(err, n) {
+        User.findOne({fb_id: req.user.fb_id}, function(err, user) {
+          user.movie_likes.push(liked_movie);
+          user.save(function(err, n) {
+            require('./../helpers/rank')(n, function(newUser) {
+              if (!newUser) {
+                res.json({
+                  response: 'fail'
+                });
+              } else {
+                res.json({
+                  response: 'ok'
+                });
+              }
+            });
           });
         });
       });
-    });
+    } else {
+      res.json({
+        response: 'ok'
+      });
+    }
   });
 };
 
