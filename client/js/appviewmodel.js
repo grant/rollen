@@ -215,19 +215,13 @@ function AppViewModel() {
     return true;
   });
 
-  // Load Youtube player API
-  var tag = document.createElement('script');
-  tag.src = "http://www.youtube.com/player_api";
-  var firstScriptTag = document.getElementsByTagName('script')[0];
-  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
   // Gets first movies for queue
   server.getNextTrailers(function(data) {
     // Load the movie into the queue
     self.onNewMovies(data);
 
-    // Set data bindings to movies
-    console.log(YT.Player);
+    // Set data bindings to movies (null means blank)
     self.currentMovie(movies[0]);
     self.nextMovie(null);
   });
