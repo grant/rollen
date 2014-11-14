@@ -26,12 +26,14 @@ function AppViewModel() {
    };
 
    var maybeGetMoreMovies = function() {
-       server.getNextTrailers(function(movie) {
-           // Dequeue current movie
+       if (movies.length < 6) {
+           server.getNextTrailers(function(movie) {
+               // Dequeue current movie
 
-           // Update current movie and shift in the new movie
-           self.onNewMovie(movie);
-       });
+               // Update current movie and shift in the new movie
+               self.onNewMovie(movie);
+           });
+       }
    };
 
    var nextCard = function() {
