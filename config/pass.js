@@ -14,8 +14,8 @@ var async = require('async');
 module.exports = function (passport) {
 
   /*
-    user ID is serialized to the session. When subsequent requests are 
-    received, this ID is used to find the user, which will be restored 
+    user ID is serialized to the session. When subsequent requests are
+    received, this ID is used to find the user, which will be restored
     to req.user.
   */
   passport.serializeUser(function(user, done) {
@@ -24,7 +24,7 @@ module.exports = function (passport) {
   });
 
   /*
-    intended to return the user profile based on the id that was serialized 
+    intended to return the user profile based on the id that was serialized
     to the session.
   */
   passport.deserializeUser(function(id, done) {
@@ -113,6 +113,10 @@ module.exports = function (passport) {
     callbackURL: Constants.Facebook.CALLBACK,
     profileFields: ['id', 'emails', 'displayName', 'photos']
   }, function(accessToken, refreshToken, profile, done) {
+    console.log('------');
+    console.log(accessToken);
+    console.log(refreshToken);
+    console.log(profile);
     User.findOne({$or: [{fbId : profile.id }, {email: profile.emails[0].value}]}, function(err, oldUser) {
       if (oldUser) {
         console.log("old user detected");
