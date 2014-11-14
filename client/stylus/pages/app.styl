@@ -57,6 +57,10 @@ body
   max-width 100%
   margin 0 auto
   height 100%
+  transition filter 1s
+
+  &:not(.hidden)
+    filter blur(10px)
 
   .film-roll
     position absolute
