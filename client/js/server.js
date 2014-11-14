@@ -60,7 +60,26 @@ function Server(url) {
     // RETURNS AN ARRAY OF {NAME, ID}
     self.search = function(friendName, callback) {
         $.get('/search', {text : friendName}, function(data) {
-            callback(data.results);
+            var friends = [];
+            for (var i = 0; i < data.results.length; i++) {
+                var friend = data.results[i];
+                friends.push(new Friend(friend.id, friend.name, null, friend));
+            }
+
+            callback(friends);
+        });
+    };
+
+    // RETURNS THE USERS LIKE
+    self.getLikes = function(callback) {
+        $.get('/all_likes', function(data) {
+            var movies = [];
+            for (var i = 0; i < data.queue.length; i++) {
+                var movie = data.queue[i];
+                movies.push(new Movie(movie.title, movie.trailer, movie));
+            }
+
+            callback(movies);
         });
     };
 }
