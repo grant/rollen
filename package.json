@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "node app.js",
+    "postinstall": "gulp js css"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,7 @@
   "homepage": "https://github.com/grant/Rollen",
   "dependencies": {
     "async": "^0.9.0",
-    "connect-redis": "^1.4.7",
+    "connect-redis": "1.4.7",
     "debug": "~2.0.0",
     "express": "3.4.7",
     "jade": "~1.6.0",
@@ -31,16 +32,14 @@
     "passport-facebook": "^1.0.3",
     "redis": "^0.12.1",
     "request": "^2.48.0",
-    "raf": "^2.0.4"
-  },
-  "devDependencies": {
+    "raf": "^2.0.4",
+    "gulp": "^3.8.10",
     "gulp-plumber": "^0.6.6",
     "gulp-util": "^3.0.1",
     "gulp-minify-css": "^0.3.11",
     "gulp-uglify": "^1.0.1",
     "gulp-watch": "^1.1.0",
     "gulp-stylus": "^1.3.4",
-    "gulp": "^3.8.10",
     "gulp-browserify": "^0.5.0",
     "gulp-autoprefixer": "^1.0.1",
     "jquery": "^2.1.1",
