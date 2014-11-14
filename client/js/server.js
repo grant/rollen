@@ -2,6 +2,7 @@ var Movie = require('./movie');
 var $ = require('jquery');
 
 function Server(url) {
+    var DISABLED = true;
     var self = this;
 
     self.getNextTrailers = function(callback) {

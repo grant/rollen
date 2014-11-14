@@ -106,12 +106,14 @@ exports.getFriendsWhoLike = function(req, res) {
   var friends_result = [];
 
   var req_user_friend_ids = [];
-  for (var f in req.user.friends) {
+  for (var i = 0; i < req.user.friends.length; i++) {
+    var f = req.user.friends[i];
     req_user_friend_ids.push(f.id);
   }
 
   UserLikes.find({}, function(err, userlikes) {
-    for (var ul in userlikes) {
+    for (var i = 0; i < userlikes.length; i++) {
+      var ul = userlikes[i];
       if (ul.movie_likes.indexOf(movie_tmdb) !== -1 && ul.fb_id !== req.user.fb_id) {
         // found a user who has liked this movie
         // need to make sure this user is a friend
