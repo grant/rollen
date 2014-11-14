@@ -69,8 +69,6 @@ module.exports = function(user, callback) {
         }
 
         user.queue = data;
-        console.log('--1---!------');
-        console.log(user.queue);
         user.save(function(error, newUser) {
             if (error) {
                 callback(null);
