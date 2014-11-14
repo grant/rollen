@@ -32,7 +32,8 @@
     "passport-facebook": "^1.0.3",
     "raf": "^2.0.4",
     "redis": "^0.12.1",
-    "request": "^2.48.0"
+    "request": "^2.48.0",
+    "bootstrap-sweetalert": "~0.4.2"
   },
   "devDependencies": {
     "gulp": "^3.8.10",

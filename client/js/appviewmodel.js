@@ -27,14 +27,11 @@ function AppViewModel() {
   // Queue for movies
   var movies = [];
 
-  var toggleVideo = function(state) {
-    // if state == 'hide', hide. Else: show video
-    var div = document.getElementById("popupVid");
-    var iframe = div.getElementsByTagName("iframe")[0].contentWindow;
-    div.style.display = state == 'hide' ? 'none' : '';
-    func = state == 'hide' ? 'pauseVideo' : 'playVideo';
+  var pauseNextVideo = function(state) {
+    var iframe = document.getElementsByTagName("iframe")[1].contentWindow;
+    func = state ? 'pauseVideo' : 'playVideo';
     iframe.postMessage('{"event":"command","func":"' + func + '","args":""}', '*');
-  }
+  };
 
   var onShowDetail = function() {
     self.showDetails(true);
@@ -76,7 +73,7 @@ function AppViewModel() {
       'top': '0'
     }, 1000, function() {
       console.log('New card down: done');
-
+      pauseNextVideo(false);
       nextMovie();
 
       $('.film-roll').css({
@@ -85,6 +82,7 @@ function AppViewModel() {
       var $last = $('.frame').last();
       var $first = $('.frame').first();
       $first.before($last);
+      pauseNextVideo(true);
       disableSwipe = false;
     });
   };
@@ -104,7 +102,6 @@ function AppViewModel() {
 
   // Event handler for liking a movie
   self.onLikeMovie = function() {
-    flipCard();
     server.likeMovie(self.currentMovie(), function(success) {
       flipCard();
     });
@@ -149,6 +146,7 @@ function AppViewModel() {
   // Event handler for pressing right arrow key
   self.onLeft = function() {
     console.log('LEFT');
+    self.showDetails(false);
     if (!disableSwipe) {
       nextCard();
     }
@@ -175,6 +173,7 @@ function AppViewModel() {
     // Set data bindings to movies
     self.currentMovie(movies[0]);
     self.nextMovie(movies[1]);
+    pauseNextVideo(true);
   });
 }
 
