@@ -11,6 +11,8 @@ var upcomingMoviesSchema = new Schema({
   directors: [String],
   actors: [String],
   trailer: String,
+  overview: String,
+  poster: String,
   url: String,
   tagline: String,
   release_date: String

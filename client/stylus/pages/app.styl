@@ -85,18 +85,25 @@ body
               font-size: 1.2em;
             button
               margin-left: 10px;
+          .event-link
+            opacity: 0
         .button-area
           position: absolute
           bottom -2px
           width 100%
           button
-            background-color gray
+            background-color black
             padding 0
             width 50%
             cursor: pointer
-            transition background-color transition-speed
-            &:hover
-              background-color black
+            transition background-color transition-speed, fill transition-speed
+            fill white
+            &.full
+              width 100%
+            &.dislike:hover
+              fill light-red
+            &.like:hover
+              fill green
         .video
           h2
             width: 100%;
