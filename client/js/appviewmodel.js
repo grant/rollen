@@ -127,8 +127,8 @@ function AppViewModel() {
 
   // Event handler for liking a movie
   self.onLikeMovie = function() {
+    flipCard();
     server.likeMovie(self.currentMovie(), function(success) {
-      flipCard();
     });
   };
 
