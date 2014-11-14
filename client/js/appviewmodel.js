@@ -169,7 +169,6 @@ function AppViewModel() {
     self.currentMovie(movies[0]);
     self.nextMovie(movies[1]);
     pauseNextVideo(true);
-      swal("Here's a message!");
   });
 }
 
