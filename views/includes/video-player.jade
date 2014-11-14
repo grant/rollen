@@ -1,5 +1,7 @@
 h2.title(data-bind="text: title")
+// ko if: !showDetails()
 iframe.video-player(data-bind="attr: {src: youtubeUrl}" frameborder="0" allowfullscreen)
+// /ko
 p.summary(data-bind="text: summary")
 .button-area
   button.dislike(data-bind="click: $root.onLeft")
