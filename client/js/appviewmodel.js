@@ -41,9 +41,11 @@ function AppViewModel() {
      movies.shift();
      maybeGetMoreMovies();
      if (self.firstMovie()) {
+       self.currentMovie(movies[0]);
        self.nextMovie(movies[1]);
      } else {
        self.currentMovie(movies[1]);
+       self.nextMovie(movies[0]);
      }
    };
 
@@ -74,10 +76,9 @@ function AppViewModel() {
    self.makeEventName = ko.observable("");
 
    self.onLikeMovie = function() {
-       flipCard();
-//     server.likeMovie(self.currentMovie(), function(success) {
-//        flipCard();
-//     });
+       server.likeMovie(self.currentMovie(), function(success) {
+         flipCard();
+       });
    };
 
    self.onNewMovies = function(movie) {
@@ -86,9 +87,9 @@ function AppViewModel() {
 
      // Fill in friend fields for each movie
      for(var i = 0; i < movie.length; i++) {
-//         server.getFriendsWhoLiked(movie[i], function(friends) {
-//            movie[i].setFriends(friends);
-//         });
+         server.getFriendsWhoLiked(movie[i], function(friends) {
+            movie[i].setFriends(friends);
+         });
      }
    };
 
