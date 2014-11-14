@@ -15,7 +15,7 @@ function AppViewModel() {
 
    var ACCESS_TOKEN = $('#access-token').text();
    var self = this;
-   //var server = new Server(API_URL);
+   var server = new Server(API_URL);
 
    var disableSwipe = false;
 
@@ -27,12 +27,12 @@ function AppViewModel() {
 
    var maybeGetMoreMovies = function() {
        if (movies.length < 6) {
-//           server.getNextTrailers(function(movie) {
-//               // Update current movie and shift in the new movie
-//               self.onNewMovies(movie);
-//               // Update current movie and shift in the new movie
-//               self.onNewMovie(movie);
-//           });
+           server.getNextTrailers(function(movie) {
+               // Update current movie and shift in the new movie
+               self.onNewMovies(movie);
+               // Update current movie and shift in the new movie
+               self.onNewMovie(movie);
+           });
        }
    };
 
@@ -75,6 +75,13 @@ function AppViewModel() {
    self.showDetails = ko.observable(false);
    self.makeEventName = ko.observable("");
 
+   self.onLikeMovie = function() {
+       flipCard();
+//     server.likeMovie(self.currentMovie(), function(success) {
+//        flipCard();
+//     });
+   };
+
    self.onNewMovies = function(movie) {
      // Push in the new movie and update the current pointer
      movies = movies.concat(movie);
@@ -91,7 +98,7 @@ function AppViewModel() {
      if (!disableSwipe) {
        // First "Yes" flip
        if (!self.showDetails()) {
-         flipCard();
+         self.onLikeMovie();
        } else { // Next card
          self.onLeft();
        }
@@ -117,10 +124,10 @@ function AppViewModel() {
      return true;
    });
 
-//   server.getNextTrailers(function(movies) {
-//     // Load the movie into the queue
-//     self.onNewMovies(movies);
-//   });
+   server.getNextTrailers(function(movies) {
+     // Load the movie into the queue
+     self.onNewMovies(movies);
+   });
 }
 
 module.exports = AppViewModel;
