@@ -36,7 +36,7 @@ exports.getMovies = function(req, res) {
   // move these top 3 from queue to seen
   User.findOne({_id: req.user._id}, function(err, user) {
     if (user.queue.length === 0) {
-      require('./../helpers/rank')(function(newUser) {
+      require('./../helpers/rank')(user, function(newUser) {
         var outPut = user.queue.splice(0, 3);
         var remainder = user.queue.splice(3);
 
