@@ -26,6 +26,14 @@ function AppViewModel() {
     self.showDetails(true);
   };
 
+  var getViewableMovieObv = function() {
+      if (!self.firstMovie()) {
+          return self.nextMovie;
+      } else {
+          return self.currentMovie;
+      }
+  };
+
   // Get more movies if below threshold
   var maybeGetMoreMovies = function() {
     if (movies.length < 6) {
@@ -44,11 +52,11 @@ function AppViewModel() {
     movies.shift();
     maybeGetMoreMovies();
     if (!self.firstMovie()) {
-      self.nextMovie(movies[1]);
+      self.nextMovie(movies[0]);
       self.currentMovie(null);
     } else {
       self.nextMovie(null);
-      self.currentMovie(movies[1]);
+      self.currentMovie(movies[0]);
     }
     // console.log(self.currentMovie());
     // console.log(self.nextMovie());
@@ -149,7 +157,7 @@ function AppViewModel() {
   // Event handler for liking a movie
   self.onLikeMovie = function() {
     flipCard();
-    server.likeMovie(self.currentMovie(), function(success) {
+    server.likeMovie(getViewableMovieObv()(), function(success) {
     });
   };
 
