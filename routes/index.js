@@ -40,9 +40,6 @@ exports.getMovies = function(req, res) {
         var outPut = user.queue.splice(0, 3);
         var remainder = user.queue.splice(3);
 
-        console.log(outPut);
-        console.log(remainder);
-
         user.queue = remainder;
         user.seen.concat(outPut);
 
