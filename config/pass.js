@@ -136,35 +136,29 @@ module.exports = function (passport) {
                   movie_likes: results
                 }).save(function(err, newUser) {
                   if (err) return done(err);
-                  // also save in user_likes
-                  UserLikes.findOne({'fb_id': profile.id}, function(err, user) {
-                    async.mapLimit(results, 10, getMovieId, function(err, moviesIds) {
-                      if (!user) {
-                        console.log('no existing user');
-                        new UserLikes({
-                          fb_id: profile.id,
-                          name: profile.displayName,
-                          photo: profile.photos[0].value,
-                          movie_likes: moviesIds
-                        }).save(function(err, n) {
-                          console.log(n);
-                          return done(null, newUser);
-                          // require('./../helpers/rank.js')(n, function(u) {
-                          //   console.log('done updating rank');
-                          //   return done(null, newUser);
-                          // });
-                        });
-                      } else {
-                        // update the list
-                        user.movie_likes.concat(moviesIds);
-                        user.save(function(err, n) {
-                          return done(null, newUser);
-                          // require('./../helpers/rank')(n, function(u) {
-                          //   console.log('done updating rank');
-                          //   return done(null, newUser);
-                          // });
-                        });
-                      }
+                  require('./../helpers/rank.js')(newUser, function(u) {
+                    // also save in user_likes
+                    UserLikes.findOne({'fb_id': profile.id}, function(err, user) {
+                      async.mapLimit(results, 10, getMovieId, function(err, moviesIds) {
+                        if (!user) {
+                          console.log('no existing user');
+                          new UserLikes({
+                            fb_id: profile.id,
+                            name: profile.displayName,
+                            photo: profile.photos[0].value,
+                            movie_likes: moviesIds
+                          }).save(function(err, n) {
+                            console.log(n);
+                            return done(null, newUser);
+                          });
+                        } else {
+                          // update the list
+                          user.movie_likes.concat(moviesIds);
+                          user.save(function(err, n) {
+                            return done(null, newUser);
+                          });
+                        }
+                      });
                     });
                   });
                 });

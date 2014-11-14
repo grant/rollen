@@ -112,10 +112,10 @@ exports.getFriendsWhoLike = function(req, res) {
 
   UserLikes.find({}, function(err, userlikes) {
     for (var ul in userlikes) {
-      if (ul.movie_likes.indexof(movie_tmdb) !== -1 && ul.fb_id !== req.user.fb_id) {
+      if (ul.movie_likes.indexOf(movie_tmdb) !== -1 && ul.fb_id !== req.user.fb_id) {
         // found a user who has liked this movie
         // need to make sure this user is a friend
-        if (req_user_friend_ids.indexof(ul.fb_id) !== -1) {
+        if (req_user_friend_ids.indexOf(ul.fb_id) !== -1) {
           // yes, it's a friend
           friends_result.push({
             fb_id: ul.fb_id,

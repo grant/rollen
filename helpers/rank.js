@@ -32,7 +32,7 @@ module.exports = function(user, callback) {
         for (var i = 0; i < movies.length; i++) {
             var movie = movies[i];
             // Check to see that this movie has not already been seen
-            if (user.seen.indexof(movie) === -1) {
+            if (user.seen.indexOf(movie) === -1) {
                 // movie_score = max_{a \in movie_likes} similarity(a, movie)
                 var bestScore = 0;
                 for (var j = 0; j < user.movie_likes.length; j++) {
