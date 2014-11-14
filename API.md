@@ -224,3 +224,26 @@ If passes:
     {
       response: 'ok'
     }
+
+### Search for friends matching a name
+
+GET `/search?text=<name>`
+
+**Output:**
+
+{
+    'results': [
+        {
+            name: 'Hello World',
+            id: 243234
+        },
+        {
+            name: 'Hello World',
+            id: 243234
+        },
+        {
+            name: 'Hello World',
+            id: 243234
+        }
+    ]
+}

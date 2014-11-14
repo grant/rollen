@@ -178,7 +178,19 @@ exports.recommend = function(req, res) {
   });
 }
 
-// exports.search = function(req, res) {
-//   var search_term = req.query.text;
-//   req.user.friends.
-// }
+exports.search = function(req, res) {
+  var search_term = req.query.text.toLowerCase();
+  var search_results = [];
+
+  for (var i = 0; i < req.user.friends.length; i++) {
+    var friend = req.user.friends[i];
+    if (friend.name.toLowerCase().indexOf(search_term) > -1) {
+      search_results.push(friend);
+    }
+  }
+
+  res.json({
+    'results': search_results
+  });
+  
+}
