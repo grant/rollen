@@ -41,11 +41,9 @@ function AppViewModel() {
      movies.shift();
      maybeGetMoreMovies();
      if (self.firstMovie()) {
-       self.currentMovie(movies[0]);
        self.nextMovie(movies[1]);
      } else {
        self.currentMovie(movies[1]);
-       self.nextMovie(movies[0]);
      }
    };
 
