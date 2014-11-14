@@ -10,6 +10,7 @@ function Movie(title, youtubeUrl, data) {
     self.friends = ko.observableArray([]);
     self.eventCreated = ko.observable(false);
     self.eventPage = ko.observable("");
+    self.showDetails = ko.observable(false);
 
     self.setFriends = function(friends) {
         self.friends(friends);
