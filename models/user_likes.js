@@ -7,7 +7,10 @@ var userLikesSchema = new Schema({
   fb_id: String,  // fb id of a user
   name: String,
   photo: String,
-  movie_likes: [String]  // tmdb id's of movies liked by user
+  movie_likes: [{
+    type: String,
+    unique: true
+    }]  // tmdb id's of movies liked by user
 });
 
 
