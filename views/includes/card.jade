@@ -1,5 +1,5 @@
 .card-area
-  .video
+  .video(data-bind="visible: !showDetails(), with: currentMovie()")
     include ./video-player
-  .details
+  .details(data-bind="visible: showDetails(), with: currentMovie()")
     include ./video-liked
