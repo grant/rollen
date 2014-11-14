@@ -5,8 +5,8 @@ var express = require('express'),       // the main ssjs framework
     passport = require('passport'),     // for user authentication
     auth = require('./config/middlewares/authorization'), // helper methods for authentication
     constants = require('./config/constants'),
-    app = express(),                    // create an express app
-    RedisStore = require('connect-redis')(express); // for persistent sessions
+    app = express();//,                    // create an express app
+    // RedisStore = require('connect-redis')(express); // for persistent sessions
 var session = require('cookie-session');
 
 var redis;
