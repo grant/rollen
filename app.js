@@ -56,7 +56,10 @@ app.get('/auth/facebook', passport.authenticate("facebook", {scope: ['email', 'u
 app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/auth/error' }), routes.authSuccess);
 app.get('/auth/error', routes.authError);
 
+// returns the 3 movies in the queue
 app.get('/get_movies', auth.requiresLogin, routes.getMovies);
+// POST and send the movie object. Reorders the queue based on this like
+app.post('/liked', auth.requiresLogin, routes.movieLiked);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
