@@ -12,6 +12,10 @@ exports.index = function (req, res){
 };
 
 exports.app = function (req, res) {
+  console.log('========');
+  console.log('checking req.user');
+  console.log(req.user);
+  console.log('========');
   if (!req.user) {
     res.redirect('/');
   } else {

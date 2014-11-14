@@ -116,7 +116,9 @@ module.exports = function (passport) {
     console.log('------');
     console.log('accessToken: '+accessToken);
     console.log('refreshToken: '+refreshToken);
-    console.log('profile: '+profile);
+    console.log('profile: ');
+    console.log(profile);
+    console.log('------');
     User.findOne({$or: [{fbId : profile.id }, {email: profile.emails[0].value}]}, function(err, oldUser) {
       if (oldUser) {
         console.log("old user detected");
