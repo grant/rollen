@@ -14,6 +14,18 @@ function Server(url) {
             callback(movies);
         });
     };
+
+    self.getFriendsWhoLiked = function(movieID, callback) {
+        $.get('/friends_like_too', {movie_tmdb : movieID}, function(data) {
+            var friends = [];
+            for (var i = 0; i < data.friends.length; i++) {
+                var friend = data.friends[i];
+                friends.push(new Friend(friend.fb_id, friend.name, friend.photo));
+            }
+
+            callback(friends);
+        });
+    };
 }
 
 module.exports = Server;
