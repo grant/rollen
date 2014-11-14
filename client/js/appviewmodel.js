@@ -255,7 +255,7 @@ function AppViewModel() {
   });
 
   // Leap Motion
-    if(Leap) {
+    if(typeof(Leap) !== 'undefined') {
         var controller = new Leap.Controller({enableGestures: true});
 
         controller.on('gesture', function (gesture){
