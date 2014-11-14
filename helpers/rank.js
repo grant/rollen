@@ -4,9 +4,9 @@ var User = require('./../models/user');
 var UserLikes = require('./../models/user_likes');
 var UpcomingMovies = require('./../models/upcoming_movies');
 
-var GENRE_AMOUNT = 2;
+var GENRE_AMOUNT = 3;
 var DIRECTOR_AMOUNT = 1;
-var ACTOR_AMOUNT = 1;
+var ACTOR_AMOUNT = 2;
 var FRIEND_AMOUNT = 10;
 
 function computeSimilarity(array, otherArray, score) {
