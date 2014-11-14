@@ -132,7 +132,7 @@ exports.getFriendsWhoLike = function(req, res) {
 
 exports.makeEvent = function(req, res) {
   var title = req.body.title;
-  require('./../helpers/date').nextSaturday(function(date) {
+  require('./../helpers/date.js').nextSaturday(function(date) {
     request({
       url: 'https://graph.facebook.com/v1.0/me/events',
       method: 'POST',
@@ -141,6 +141,8 @@ exports.makeEvent = function(req, res) {
         start_time: date
       }
     }, function(err, resp, body) {
+        console.log(err);
+        console.log(resp);
         if (!err && resp.statusCode === 200) {
           body = JSON.parse(body);
           var event_id = body.id;
@@ -189,5 +191,5 @@ exports.search = function(req, res) {
   res.json({
     'results': search_results
   });
-  
+
 }
