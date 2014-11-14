@@ -1,4 +1,5 @@
 var Movie = require('./movie');
+var Friend = require('./friend');
 var $ = require('jquery');
 
 function Server(url) {
