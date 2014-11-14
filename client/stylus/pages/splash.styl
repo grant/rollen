@@ -48,22 +48,24 @@ body
     .login-area
       color white
       text-align center
+      cursor pointer
 
       &:hover
         .login-link
           color gray
-        .title-area .title svg
+        .image-area svg #fillpath
           fill gray
-
-      .login-link
-        cursor pointer
 
       .image-area
         display inline-block
         margin 0 20px
 
-          // width 100px
-          // height 100px
+        svg
+          width 100px
+          height 100px
+
+          #fillpath
+            fill white
 
       .title-area
         display inline-block
