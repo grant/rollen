@@ -1,7 +1,7 @@
 .card-selected(data-bind="visible: showDetails(), with: currentMovie()")
-    h2 Invite your friends to watch this movie!
+    h2 movie title goes here
     .friends-that-like
-        h3 These friends like this
+        h3 friends who like this
         .friends(data-bind="foreach: friends")
             .friend
 .card-video(data-bind="visible: !showDetails(), with: currentMovie()")

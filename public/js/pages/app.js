@@ -6,7 +6,7 @@ var FlashMessage = require('./flashmessage');
 var ko = require('knockout');
 var $ = require('jquery');
 
-function AppViewModel() {
+function AppViewModel(user) {
     // PRIVATE
     //-------------
     var API_URL = 'localhost';
