@@ -22,9 +22,9 @@ function AppViewModel() {
   var movies = [];
 
   var pauseNextVideo = function(state) {
-    var iframe = document.getElementsByTagName("iframe")[1].contentWindow;
-    func = state ? 'pauseVideo' : 'playVideo';
-    iframe.postMessage('{"event":"command","func":"' + func + '","args":""}', '*');
+    // var iframe = document.getElementsByTagName("iframe")[1].contentWindow;
+    // func = state ? 'pauseVideo' : 'playVideo';
+    // iframe.postMessage('{"event":"command","func":"' + func + '","args":""}', '*');
   };
 
   var onShowDetail = function() {
@@ -53,9 +53,9 @@ function AppViewModel() {
     } else {
       self.currentMovie(movies[1]);
     }
-    console.log(self.currentMovie());
-    console.log(self.nextMovie());
-    console.log(movies);
+    // console.log(self.currentMovie());
+    // console.log(self.nextMovie());
+    // console.log(movies);
   };
 
   // DOM stuff for moving to the next frame
@@ -190,12 +190,19 @@ function AppViewModel() {
     return true;
   });
 
+  // Load Youtube player API
+  var tag = document.createElement('script');
+  tag.src = "http://www.youtube.com/player_api";
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
   // Gets first movies for queue
   server.getNextTrailers(function(data) {
     // Load the movie into the queue
     self.onNewMovies(data);
 
     // Set data bindings to movies
+    console.log(YT.Player);
     self.currentMovie(movies[0]);
     self.nextMovie(movies[1]);
     pauseNextVideo(true);
