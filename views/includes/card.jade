@@ -1,5 +1,7 @@
 .card-area
+  // ko if: currentMovie() != null
   .video(data-bind="visible: !showDetails(), with: currentMovie()")
     include ./video-player
   .details(data-bind="visible: showDetails(), with: currentMovie()")
     include ./video-liked
+  // /ko

@@ -21,11 +21,6 @@ function AppViewModel() {
   // Queue for movies
   var movies = [];
 
-  var pauseNextVideo = function(state) {
-    // var iframe = document.getElementsByTagName("iframe")[1].contentWindow;
-    // func = state ? 'pauseVideo' : 'playVideo';
-    // iframe.postMessage('{"event":"command","func":"' + func + '","args":""}', '*');
-  };
 
   var onShowDetail = function() {
     self.showDetails(true);
@@ -48,9 +43,11 @@ function AppViewModel() {
     self.firstMovie(!self.firstMovie());
     movies.shift();
     maybeGetMoreMovies();
-    if (self.firstMovie()) {
+    if (!self.firstMovie()) {
       self.nextMovie(movies[1]);
+      self.currentMovie(null);
     } else {
+      self.nextMovie(null);
       self.currentMovie(movies[1]);
     }
     // console.log(self.currentMovie());
@@ -73,7 +70,6 @@ function AppViewModel() {
       'top': '0'
     }, 1000, function() {
       console.log('New card down: done');
-      pauseNextVideo(false);
       nextMovie();
 
       $('.film-roll').css({
@@ -82,7 +78,6 @@ function AppViewModel() {
       var $last = $('.frame').last();
       var $first = $('.frame').first();
       $first.before($last);
-      pauseNextVideo(true);
       disableSwipe = false;
     });
   };
@@ -234,8 +229,7 @@ function AppViewModel() {
     // Set data bindings to movies
     console.log(YT.Player);
     self.currentMovie(movies[0]);
-    self.nextMovie(movies[1]);
-    pauseNextVideo(true);
+    self.nextMovie(null);
   });
 }
 
