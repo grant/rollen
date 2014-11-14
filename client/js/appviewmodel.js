@@ -7,50 +7,94 @@ var $ = require('jquery');
 
 function AppViewModel() {
     // PRIVATE
+    //-------------
     var API_URL = 'localhost';
     var LEFT = 37;
     var RIGHT = 39;
 
 
-    var ACCESS_TOKEN = $('#access-token').html();
+    var ACCESS_TOKEN = $('#access-token').text();
     var self = this;
     var server = new Server(API_URL);
+    var flash = new FlashMessage('flash', 2000);
+
+    var disableSwipe = false;
 
     var movies = [];
 
+    var getCurrentCard = function() {
+        if (self.showFirstCard()) {
+            return $('.card-one');
+        } else {
+            return $('.card-two');
+        }
+    };
 
-    var flipCard = function() {
-
+    var onShowDetail = function() {
+        self.showDetails(true);
     };
 
     var nextCard = function() {
-        // DO JQUERY DISCARD HERE
-        $('.card-one').slideDown();
-        server.getNextTrailer(function(movie) {
-            self.onNewMovie(movie);
-            movies.shift();
-            self.currentMovie(movies[movies.length - 1]);
+        disableSwipe = true;
+        getCurrentCard().animate({'top' : '100%'}, 1000, function() {
+            getCurrentCard().css({'top' : '-100%;'});
+            console.log('Moved card off screen: done');
+
+            self.showFirstCard(!self.showFirstCard());
+
+            server.getNextTrailer(function(movie) {
+                // Dequeue current movie
+                movies.shift();
+
+                // Update current movie and shift in the new movie
+                self.onNewMovie(movie);
+            });
+
+            // Move the new card down
+            getCurrentCard().animate({'top' : '0'}, 1000, function() {
+                console.log('Moved new card on screen: done');
+                disableSwipe = false;
+            });
         });
     };
 
+    var flipCard = function() {
+        self.showDetails(!self.showDetails());
+    };
+
     // PUBLIC
+    //-------------
     self.currentFriends = ko.observableArray([]);
     self.currentMovie = ko.observable(null);
     self.showFirstCard = ko.observable(true);
+    self.showDetails = ko.observable(false);
 
     self.onNewMovie = function(movie) {
-        movies.push(movie)
+        // Push in the new movie and update the current pointer
+        movies.push(movie);
+        self.currentMovie(movies[movies.length - 1]);
+        console.log(movies);
     };
 
     self.onRight = function() {
-        flipCard();
+        if (!disableSwipe) {
+            // First "Yes" flip
+            if (!self.showDetails()) {
+                flipCard();
+            } else { // Next card
+                self.onLeft();
+            }
+        }
     };
 
     self.onLeft = function() {
-        nextCard();
+        if (!disableSwipe) {
+            nextCard();
+        }
     };
 
     // INIT
+    //-------------
     $(document).keydown(function (e) {
         if(e.which == LEFT) {
             self.onLeft();
@@ -58,6 +102,19 @@ function AppViewModel() {
             self.onRight();
         }
         return true;
+    });
+
+    server.getNextTrailer(function(movie) {
+        // TODO: Stop future loading screen
+
+        // Load the movie into the queue
+        self.onNewMovie(movie);
+
+        // Grab another movie (preload)
+        server.getNextTrailer(function(movie) {
+            // Load the movie into the queue
+            self.onNewMovie(movie);
+        });
     });
 }
 

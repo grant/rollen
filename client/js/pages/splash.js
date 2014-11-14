@@ -1,7 +1,8 @@
 var $ = require('jquery');
 var Kernel = require('../components/splash/kernel');
+var raf = require('raf');
 
-console.log(Kernel);
+var CREATE_POPCORN_SPEED = 1000; // ms
 
 $(function () {
   // Setup
@@ -9,11 +10,32 @@ $(function () {
   var kernels = [];
 
   function createKernel () {
-    var $kernel = $('<img src="img/popcornkern.svg"/>').addClass('kernel');
-    $kernels.css('transform', 'scale(0.2) rotate(33.2deg)');
-    // $kernels.css('transform', '');
-    $kernels.append($kernel);
+    var kernel = new Kernel();
+
+    // Add to DOM
+    $kernels.append(kernel.$el);
+
+    // Add to kernel list
+    kernels.push(kernel);
   }
 
-  createKernel();
+  function updateKernels () {
+    for (var i = kernels.length - 1; i >= 0; --i) {
+      var kernel = kernels[i];
+      kernel.update();
+
+      // Remove kernel if off screen
+      if (kernel.y > kernel.height) {
+        kernel.remove();
+        kernels.splice(i, 1);
+      }
+    }
+  }
+
+  // Request animation frame
+  raf(function tick () {
+    raf(tick);
+    updateKernels();
+  });
+  setInterval(createKernel, CREATE_POPCORN_SPEED);
 });
