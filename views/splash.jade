@@ -7,9 +7,13 @@ block js
   script(src='js/splash.js')
 
 block content
-  .popcorn-layer
-  .logo-layer
-    img.logo(src='')
-    .login-area
-      | facebook login
-    .popcorn
+  .popcorn.layer
+    .popcorn-bucket
+      img.image(src='img/bucket.png')
+    .popcorn-kernels
+  .logo.layer
+    .content
+      img.logo(src='img/logo.png')
+      .login-area
+        a(href='/app') Login with Facebook
+      .popcorn

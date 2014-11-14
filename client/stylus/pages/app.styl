@@ -1,0 +1,38 @@
+@import "../global"
+@import "../reset"
+
+body
+  background-color: dark-red
+
+.wrapper
+  width: 66%;
+  min-width: 320px;
+  margin: 0 auto;
+  height: 100%;
+  background-color: white;
+
+.app
+  float: left;
+  margin-top: 40px;
+  border-top: 10px black solid;
+  width: calc(100% - 166px);
+  background: blue;
+
+.left-pad
+  float: left;
+  width: 83px;
+  height: 100%;
+  border-right: 4px gray solid;
+  border-left: 4px light-red solid;
+  background: url('../img/filmside.png') repeat-y top left;
+
+.right-pad
+  float: right;
+  width: 83px;
+  height: 100%;
+  border-right: 4px light-red solid;
+  border-left: 4px gray solid;
+  background: url('../img/filmside.png') repeat-y top right;
+
+.clear-fix
+  clear: both;
