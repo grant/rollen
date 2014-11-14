@@ -30,8 +30,6 @@ function AppViewModel() {
            server.getNextTrailers(function(movie) {
                // Update current movie and shift in the new movie
                self.onNewMovies(movie);
-               // Update current movie and shift in the new movie
-               self.onNewMovie(movie);
            });
        }
    };
