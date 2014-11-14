@@ -7,7 +7,7 @@ var express = require('express'),       // the main ssjs framework
     constants = require('./config/constants'),
     app = express(),                    // create an express app
     RedisStore = require('connect-redis')(express); // for persistent sessions
-
+var session = require('cookie-session');
 
 var redis;
 var redisURI = process.env.MONGOLAB_URI || 'redis://redistogo:57028c3a314873902459d1407db1657e@greeneye.redistogo.com:11571/';
@@ -40,9 +40,8 @@ app.configure(function(){
     app.use(express.bodyParser());
     app.use(express.methodOverride());
     app.use(express.cookieParser('keyboard cat'));
-    app.use(express.session({
-        secret: 'YOLO',
-        store: new RedisStore({ client: redis })
+    app.use(session({
+      keys: ['key1', 'key2']
     }));
     app.use(passport.initialize());
     app.use(passport.session());
