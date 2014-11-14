@@ -168,25 +168,25 @@ GET `/friends_like_too?movie_tmdb=<tmdb_id>`
 
 **Output:**
 
-{
-  'friends': [
     {
-      fb_id: '1232',
-      name: 'Hello World',
-      photo: https://fb.ukcnfdf.com/fdsfds.jpg
-    },
-    {
-      fb_id: '1232',
-      name: 'Hello World',
-      photo: https://fb.ukcnfdf.com/fdsfds.jpg
-    },
-    {
-      fb_id: '1232',
-      name: 'Hello World',
-      photo: https://fb.ukcnfdf.com/fdsfds.jpg
+      'friends': [
+        {
+          fb_id: '1232',
+          name: 'Hello World',
+          photo: https://fb.ukcnfdf.com/fdsfds.jpg
+        },
+        {
+          fb_id: '1232',
+          name: 'Hello World',
+          photo: https://fb.ukcnfdf.com/fdsfds.jpg
+        },
+        {
+          fb_id: '1232',
+          name: 'Hello World',
+          photo: https://fb.ukcnfdf.com/fdsfds.jpg
+        }
+      ]
     }
-  ]
-}
 
 ### Make an event
 
@@ -198,9 +198,9 @@ title: title of the event
 
 Response:
 
-{
-  'event': 'https://www.facebook.com/events/3242543545425425'
-}
+    {
+      'event': 'https://www.facebook.com/events/3242543545425425'
+    }
 
 ### Recommend a movie to a user
 
@@ -231,19 +231,19 @@ GET `/search?text=<name>`
 
 **Output:**
 
-{
-    'results': [
-        {
-            name: 'Hello World',
-            id: 243234
-        },
-        {
-            name: 'Hello World',
-            id: 243234
-        },
-        {
-            name: 'Hello World',
-            id: 243234
-        }
-    ]
-}
+    {
+        'results': [
+            {
+                name: 'Hello World',
+                id: 243234
+            },
+            {
+                name: 'Hello World',
+                id: 243234
+            },
+            {
+                name: 'Hello World',
+                id: 243234
+            }
+        ]
+    }
