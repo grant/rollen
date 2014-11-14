@@ -28,8 +28,6 @@ function AppViewModel() {
    var maybeGetMoreMovies = function() {
        if (movies.length < 6) {
            server.getNextTrailers(function(movie) {
-               // Dequeue current movie
-
                // Update current movie and shift in the new movie
                self.onNewMovies(movie);
                // Update current movie and shift in the new movie
@@ -47,6 +45,9 @@ function AppViewModel() {
        movies.shift();
        maybeGetMoreMovies();
 
+       self.currentMovie(movies[0]);
+       self.nextMovie(movies[1]);
+
        $('.film-roll').css({'top' : '-100%'});
        $('.frame').last().prepend('.film-roll');
        disableSwipe = false;
@@ -60,13 +61,20 @@ function AppViewModel() {
    // PUBLIC
    //-------------
    self.currentMovie = ko.observable(null);
+   self.nextMovie = ko.observable(null);
    self.showDetails = ko.observable(false);
    self.makeEventName = ko.observable("");
 
    self.onNewMovies = function(movie) {
      // Push in the new movie and update the current pointer
      movies = movies.concat(movie);
-     self.currentMovie(movies[0]);
+
+     // Fill in friend fields for each movie
+     for(var i = 0; i < movie.length; i++) {
+         server.getFriendsWhoLiked(movie[i].data, function(friends) {
+            movie[i].setFriends(friends);
+         });
+     }
    };
 
    self.onRight = function() {
