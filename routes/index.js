@@ -1,5 +1,5 @@
 var constants = require('./../config/constants.js');
-var User = require('./../models/user.js');
+var User = require('./../models/user');
 
 /*
  * GET home page.
@@ -11,9 +11,9 @@ exports.index = function (req, res){
 
 exports.play = function (req, res) {
   console.log(req.user);
-  User.findOneById(req.user.id, function(user, err) {
+  User.findOne({'id': req.user.id}, function(user, err) {
     console.log('..........');
-    console.log(req.user);
+    console.log(req.user.photo);
   });
 };
 
