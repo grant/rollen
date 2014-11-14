@@ -64,9 +64,11 @@ body
             .title
               padding 20px
               text-align center
-            @media phone
-              font-size 20px
+              @media phone
+                font-size 20px
             .friends-that-like
+              @media phone
+                display none
               width calc(50% - 20px);
               float left
               .friend
@@ -83,16 +85,24 @@ body
               li:hover
                 cursor pointer;
             .make-event
+              @media phone
+                width 100%
+                padding 0
               width 50%
               padding-left 20px
               float right;
               input, input:active
+                @media phone
+                  width 100%
                 padding 20px;
                 background black;
                 color white;
                 border none;
                 font-size 1.2em;
               button
+                @media phone
+                  margin 0
+                  width 100%
                 margin-left 10px;
             .event-link
               opacity 0
