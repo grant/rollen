@@ -23,6 +23,7 @@ function computeSimilarity(array, otherArray, score) {
 }
 
 module.exports = function(user, callback) {
+    console.log(user);
     UpcomingMovies.find({}, function(error, movies) {
         if (error) {
             callback(null);
