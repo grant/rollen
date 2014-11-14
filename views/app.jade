@@ -7,17 +7,15 @@ block js
   script(src='js/pages/app.js')
 
 block content
-  .outer
-    span.access-token= accessToken
-    #flash
-    .profile
-      img.profile-picture(src=photo)
-    .film-roll
-      .frame
-        .left-pad
-        include includes/card
-        .right-pad
-      .frame
-        .left-pad
-        include includes/card
-        .right-pad
+  span.access-token= accessToken
+  .profile
+    img.profile-picture(src=photo)
+  .film-roll
+    .frame
+      .left.pad
+      include includes/card
+      .right.pad
+    .frame
+      .left.pad
+      include includes/card
+      .right.pad
