@@ -70,7 +70,7 @@ app.post('/make_event', auth.requiresLogin, routes.makeEvent);
 app.post('/recommend', auth.requiresLogin, routes.recommend);
 
 // find users matching a search criteria on name
-// app.get('/search', auth.requiresLogin, routes.search);
+app.get('/search', auth.requiresLogin, routes.search);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
