@@ -63,17 +63,17 @@ entries = []
 results, total_pages = get_movie_results(NOW_PLAYING_URL, 1)
 entries += results
 
-for i in xrange(2, total_pages + 1):
-    results, total_pages = get_movie_results(NOW_PLAYING_URL, i)
-    entries += results
+# for i in xrange(2, total_pages + 1):
+#     results, total_pages = get_movie_results(NOW_PLAYING_URL, i)
+#     entries += results
 
-# Get upcoming movies
-results, total_pages = get_movie_results(UPCOMING_URL, 1)
-entries += results
+# # Get upcoming movies
+# results, total_pages = get_movie_results(UPCOMING_URL, 1)
+# entries += results
 
-for i in xrange(2, total_pages + 1):
-    results, total_pages = get_movie_results(UPCOMING_URL, i)
-    entries += results
+# for i in xrange(2, total_pages + 1):
+#     results, total_pages = get_movie_results(UPCOMING_URL, i)
+#     entries += results
 
 # Get the summary for every movie in this
 movie_ids = set(entries)
