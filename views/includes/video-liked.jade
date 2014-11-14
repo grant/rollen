@@ -1,6 +1,6 @@
-.liked-card-icon
-h2(data-bind="text: title")
 .top-area
+  .liked-card-icon
+  h2(data-bind="text: title")
   .friends-that-like
     div(data-bind="visible: friends().length > 0")
       h3 friends who like this
@@ -14,15 +14,14 @@ h2(data-bind="text: title")
         li(data-bind="click: function() { $root.onRecommendFriend($data, $parent); }")
           span(data-bind="text: name")
 
-.make-event
+  .make-event
     div.event-prompt
-        h3 create movie night event
-        input.event-name(data-bind="value: $root.makeEventName" placeholder="Event name")
-        button.btn-dark.make-event-button(data-bind="click: $root.onCreateEvent") go
+      h3 create movie night event
+      input.event-name(data-bind="value: $root.makeEventName" placeholder="Event name")
+      button.btn-dark.make-event-button(data-bind="click: $root.onCreateEvent") go
     div.event-link
-        h3 event created. click and invite friends.
-        a(data-bind="attr: {href: eventPage}, text: eventPage")
-.clearfix
+      h3 event created. click and invite friends.
+      a(data-bind="attr: {href: eventPage}, text: eventPage")
 .button-area
   button.next.full(data-bind="click: $root.onLeft")
     include ../../public/img/arrow.svg
