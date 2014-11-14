@@ -30,7 +30,7 @@ function AppViewModel() {
            // Dequeue current movie
 
            // Update current movie and shift in the new movie
-           self.onNewMovie(movie);
+           self.onNewMovies(movie);
        });
    };
 
