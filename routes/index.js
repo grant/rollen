@@ -125,3 +125,26 @@ exports.makeEvent = function(req, res) {
     });
   });
 }
+
+exports.recommend = function(req, res) {
+  var from = req.user.fb_id;
+  var to = req.body.to_fb_id;
+  var movie = req.body.movie;
+
+  movie.recommended_by = req.user.name;
+
+  User.findOne({fb_id: to}, function(err, to_user) {
+    user.queue = [movie].concat(user.queue);
+    user.save(function(err, n) {
+      if (!n) {
+        res.json({
+          response: 'fail'
+        });
+      } else {
+        res.json({
+          response: 'ok'
+        });
+      }
+    });
+  });
+}
