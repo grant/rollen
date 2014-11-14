@@ -63,7 +63,12 @@ function AppViewModel() {
   var nextCard = function() {
     disableSwipe = true;
     console.log('next card');
+
     self.showDetails(false);
+    $('.make-event-button').show();
+    self.instaFriendList([]);
+    self.partialFriendName("");
+
     $('.film-roll').animate({
       'top': '0'
     }, 1000, function() {
@@ -125,6 +130,26 @@ function AppViewModel() {
   self.firstMovie = ko.observable(true);
   self.showDetails = ko.observable(false);
   self.makeEventName = ko.observable("");
+  self.instaFriendList = ko.observableArray([]);
+  self.partialFriendName = ko.observable("");
+
+
+  self.onSearchFriend = function() {
+    console.log(self.partialFriendName());
+    if (self.partialFriendName() != "") {
+        server.search(self.partialFriendName(), function(friends) {
+            self.instaFriendList(friends.slice(0,10));
+        });
+    }
+    return true; // allow typing
+  };
+
+    self.onRecommendFriend = function(friend, movie) {
+        if (confirm("Really recommend?")) {
+            server.recommend(friend, movie, function(success) {
+            });
+        }
+    };
 
   // Event handler for liking a movie
   self.onLikeMovie = function() {
@@ -134,11 +159,16 @@ function AppViewModel() {
   };
 
   // Event handler for liking a movie
-  self.onCreateEvent = function() {
-    server.makeEvent(self.makeEventName, function(event) {
-      console.log(event);
-      // TODO: show event url
-    });
+  self.onCreateEvent = function(movie) {
+    if(self.makeEventName() != "") {
+      $('.make-event-button').hide();
+      server.makeEvent(self.makeEventName(), function(event) {
+          console.log(event);
+          // TODO: show event url
+          movie.setEventPage(event);
+          movie.setEventCreated(true);
+      });
+    }
   };
 
   // Event handler for getting new movies

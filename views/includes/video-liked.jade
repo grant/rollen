@@ -1,11 +1,23 @@
 .liked-card-icon
 h2(data-bind="text: title")
 .friends-that-like
-    h3 friends who like this
-    //.friends(data-bind="foreach: friends")
-    //    .friend
-    //        img.profile(data-bind="attr: {src: profilePicture}")
+    div(data-bind="visible: friends().length > 0")
+        h3 friends who like this
+        .friends(data-bind="foreach: friends")
+            .friend
+                img(data-bind="attr: {src: photoURL}")
+    div
+        h3 recommend to friend
+        input.friend-search(data-bind="value: $root.partialFriendName, valueUpdate: 'afterkeydown', event: {keydown: $root.onSearchFriend}" placeholder="Search friend name")
+        ul(data-bind="foreach: $root.instaFriendList")
+            li(data-bind="click: function() { $root.onRecommendFriend($data, $parent); }")
+                span(data-bind="text: name")
+
 .make-event
     h3 create movie night event
-    input.event-name(data-bind="value: $root.makeEventName")
-    button.btn-dark(data-bind="click: $root.onCreateEvent") go
+    div(data-bind="visible: !eventCreated()")
+        input.event-name(data-bind="value: $root.makeEventName" placeholder="Event name")
+        button.btn-dark.make-event-button(data-bind="click: $root.onCreateEvent") go
+    div(data-bind="visible: eventCreated()")
+        a(data-bind="attr: {href: eventPage}, text: eventPage")
+.clearfix
