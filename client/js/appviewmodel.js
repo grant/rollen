@@ -131,7 +131,8 @@ function AppViewModel() {
    server.getNextTrailers(function(movies) {
      // Load the movie into the queue
      self.onNewMovies(movies);
-     nextMovie();
+     self.currentMovie(movies[0]);
+     self.nextMovie(movies[1]);
    });
 }
 
