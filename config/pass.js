@@ -84,6 +84,8 @@ module.exports = function (passport) {
                   title: body.title,
                   directors: directors,
                   actors: actors,
+                  overview: body.overview,
+                  poster: body.poster,
                   trailer: body.trailer,
                   url: body.url,
                   release_date: body.released,

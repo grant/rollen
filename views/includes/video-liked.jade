@@ -14,13 +14,15 @@ h2(data-bind="text: title")
         li(data-bind="click: function() { $root.onRecommendFriend($data, $parent); }")
           span(data-bind="text: name")
 
-  .make-event
-    h3 create movie night event
-    div(data-bind="visible: !eventCreated()")
-      input.event-name(data-bind="value: $root.makeEventName" placeholder="Event name")
-      button.btn-dark.make-event-button(data-bind="click: $root.onCreateEvent") go
-    div(data-bind="visible: eventCreated()")
-      a(data-bind="attr: {href: eventPage}, text: eventPage")
+.make-event
+    div.event-prompt
+        h3 create movie night event
+        input.event-name(data-bind="value: $root.makeEventName" placeholder="Event name")
+        button.btn-dark.make-event-button(data-bind="click: $root.onCreateEvent") go
+    div.event-link
+        h3 event created. click and invite friends.
+        a(data-bind="attr: {href: eventPage}, text: eventPage")
+.clearfix
 .button-area
   button.next.full(data-bind="click: $root.onLeft")
     include ../../public/img/arrow.svg
