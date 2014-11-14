@@ -10,11 +10,16 @@ exports.index = function (req, res){
 };
 
 exports.play = function (req, res) {
-  console.log(req.user);
-  User.findOne({'id': req.user.id}, function(user, err) {
-    console.log('..........');
-    console.log(req.user.photo);
-  });
+  if (!req.user) {
+    res.redirect('/');
+  } else {
+    res.render('app', {
+      title: constants.APP_NAME,
+      name: req.user.name,
+      photo: req.user.photo,
+      accessToken: req.user.accessToken
+    });
+  }
 };
 
 exports.authError = function(req, res) {
