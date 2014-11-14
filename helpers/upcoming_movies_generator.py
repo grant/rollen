@@ -38,15 +38,15 @@ def convert_data(data):
     result_string += "imdb_id: " + enclose_quotes(data["imdb_id"]) + ",\n"
 
     genres = [str(genre) for genre in data["genres"]]
-    result_string += "genres : " + convert_array_to_string(genres) + ", \n"
+    result_string += "genres : " + convert_array_to_string(genres) + ",\n"
 
     result_string += "title: " + enclose_quotes(data["title"]) + ",\n"
 
     directors = [str(director["name"]) for director in data["people"]["directors"]]
-    result_string += "directors : " + convert_array_to_string(directors) + ", \n"
+    result_string += "directors : " + convert_array_to_string(directors) + ",\n"
 
     actors = [str(actor["name"]) for actor in data["people"]["actors"]]
-    result_string += "actors : " + convert_array_to_string(actors) + ", \n"
+    result_string += "actors : " + convert_array_to_string(actors) + ",\n"
 
     result_string += "trailer: " + enclose_quotes(data["trailer"]) + ",\n"
     result_string += "url: " + enclose_quotes(data["url"]) + ",\n"
