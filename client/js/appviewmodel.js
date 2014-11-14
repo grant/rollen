@@ -150,8 +150,7 @@ function AppViewModel() {
   };
 
   self.onSetMovie = function(movie) {
-      console.log('set movie');
-      console.log(movie);
+    self.showOverlay(false);
     getViewableMovieObv()(movie);
   };
 

@@ -2,5 +2,7 @@
     .exit-button(data-bind="click: onCloseOverlay")
         include ../../public/img/dislike.svg
     .liked-movies(data-bind="foreach: likedMovies")
+        // ko if: posterUrl()
         .liked-movie(data-bind="click: function(){ $root.onSetMovie($data) }")
             img.thumb(data-bind="attr: {src: posterUrl}")
+        // /ko
