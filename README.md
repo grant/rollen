@@ -1,6 +1,9 @@
 # Rollen
 
-Basically tinder but for movies
+Find movies with your friends.
+
+http://rollen.co
+
 
 ## How to deploy
 
