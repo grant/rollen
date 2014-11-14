@@ -1,8 +1,8 @@
 // Ranks the upcoming movies against the user's likes (movie_likes)
 
-var User = require('./../modeles/user');
-var UserLikes = require('./../modeles/user_likes');
-var UpcomingMovies = require('./../modeles/upcoming_movies');
+var User = require('./../models/user');
+var UserLikes = require('./../models/user_likes');
+var UpcomingMovies = require('./../models/upcoming_movies');
 
 var GENRE_AMOUNT = 1;
 var DIRECTOR_AMOUNT = 1;
@@ -69,6 +69,8 @@ module.exports = function(user, callback) {
         }
 
         user.queue = data;
+        console.log('--1---!------');
+        console.log(user.queue);
         user.save(function(error, newUser) {
             if (error) {
                 callback(null);

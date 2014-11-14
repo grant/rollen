@@ -39,9 +39,7 @@ module.exports = function (passport) {
     request('https://graph.facebook.com/me?fields=friends&limit=1000&access_token='+accessToken,
       function(err, resp, body) {
         body = JSON.parse(body);
-        async.mapLimit(body.friends.data, 20, function(friend, cb) {return friend.id}, function(err, friends) {
-          callback(friends);
-        });
+        callback(body.friends.data);
       });
   }
 
@@ -138,25 +136,29 @@ module.exports = function (passport) {
                   movie_likes: results
                 }).save(function(err, newUser) {
                   if (err) return done(err);
-                  // also save in user_likes
-                  UserLikes.findOne({'fb_id': profile.id}, function(err, user) {
-                    async.mapLimit(results, 10, getMovieId, function(err, moviesIds) {
-                      if (!user) {
-                        new UserLikes({
-                          fb_id: profile.id,
-                          name: profile.displayName,
-                          photo: profile.photos[0].value,
-                          movie_likes: moviesIds
-                        }).save(function(err, n) {
-                          return done(null, newUser);
-                        });
-                      } else {
-                        // update the list
-                        user.movie_likes.concat(moviesIds);
-                        user.save(function(err, n) {
-                          return done(null, newUser);
-                        });
-                      }
+                  require('./../helpers/rank.js')(newUser, function(u) {
+                    // also save in user_likes
+                    UserLikes.findOne({'fb_id': profile.id}, function(err, user) {
+                      async.mapLimit(results, 10, getMovieId, function(err, moviesIds) {
+                        if (!user) {
+                          console.log('no existing user');
+                          new UserLikes({
+                            fb_id: profile.id,
+                            name: profile.displayName,
+                            photo: profile.photos[0].value,
+                            movie_likes: moviesIds
+                          }).save(function(err, n) {
+                            console.log(n);
+                            return done(null, newUser);
+                          });
+                        } else {
+                          // update the list
+                          user.movie_likes.concat(moviesIds);
+                          user.save(function(err, n) {
+                            return done(null, newUser);
+                          });
+                        }
+                      });
                     });
                   });
                 });

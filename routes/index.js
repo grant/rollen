@@ -35,17 +35,39 @@ exports.getMovies = function(req, res) {
   // return top 3 from queue
   // move these top 3 from queue to seen
   User.findOne({_id: req.user._id}, function(err, user) {
-    var outPut = user.queue.splice(0, 3);
-    var remainder = user.queue.splice(3);
+    if (user.queue.length === 0) {
+      require('./../helpers/rank')(function(newUser) {
+        var outPut = user.queue.splice(0, 3);
+        var remainder = user.queue.splice(3);
 
-    user.queue = remainder;
-    user.seen.concat(outPut);
+        console.log(outPut);
+        console.log(remainder);
 
-    user.save(function(err, newUser) {
-      res.json({
-        'queue': outPut
+        user.queue = remainder;
+        user.seen.concat(outPut);
+
+        user.save(function(err, newUser) {
+          res.json({
+            'queue': outPut
+          });
+        });
       });
-    });
+    } else {
+      var outPut = user.queue.splice(0, 3);
+      var remainder = user.queue.splice(3);
+
+      console.log(outPut);
+      console.log(remainder);
+
+      user.queue = remainder;
+      user.seen.concat(outPut);
+
+      user.save(function(err, newUser) {
+        res.json({
+          'queue': outPut
+        });
+      });
+    }
 
   });
 };
@@ -62,7 +84,7 @@ exports.movieLiked = function(req, res) {
       User.findOne({fb_id: req.user.fb_id}, function(err, user) {
         user.movie_likes.push(movie);
         user.save(function(err, n) {
-          require('./../helpers/rank')(function(newUser) {
+          require('./../helpers/rank')(n, function(newUser) {
             if (!newUser) {
               res.json({
                 response: 'fail'
@@ -83,12 +105,17 @@ exports.getFriendsWhoLike = function(req, res) {
   var movie_tmdb = req.query.movie_tmdb;
   var friends_result = [];
 
+  var req_user_friend_ids = [];
+  for (var f in req.user.friends) {
+    req_user_friend_ids.push(f.id);
+  }
+
   UserLikes.find({}, function(err, userlikes) {
     for (var ul in userlikes) {
-      if (ul.movie_likes.indexof(movie_tmdb) !== -1 && ul.fb_id !== req.user.fb_id) {
+      if (ul.movie_likes.indexOf(movie_tmdb) !== -1 && ul.fb_id !== req.user.fb_id) {
         // found a user who has liked this movie
         // need to make sure this user is a friend
-        if (req.user.friends.indexof(ul.fb_id) !== -1) {
+        if (req_user_friend_ids.indexOf(ul.fb_id) !== -1) {
           // yes, it's a friend
           friends_result.push({
             fb_id: ul.fb_id,
@@ -148,3 +175,8 @@ exports.recommend = function(req, res) {
     });
   });
 }
+
+// exports.search = function(req, res) {
+//   var search_term = req.query.text;
+//   req.user.friends.
+// }
