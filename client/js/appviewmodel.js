@@ -17,6 +17,11 @@ function AppViewModel() {
   var self = this;
   var server = new Server(API_URL);
 
+   // server.makeEvent("Test Event, Please Ignore", function(data) {
+   //  console.log(data);
+   // });
+   // throw "die";
+
   var disableSwipe = false;
 
   // Queue for movies
