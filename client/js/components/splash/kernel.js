@@ -43,4 +43,9 @@ Kernel.prototype.update = function () {
   this.$el.css('transform', 'rotate(' + this.rot + 'deg)');
 };
 
+// Element cleanup
+Kernel.prototype.remove = function () {
+  this.$el.remove();
+};
+
 module.exports = Kernel;
