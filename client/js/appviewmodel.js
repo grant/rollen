@@ -74,9 +74,10 @@ function AppViewModel() {
    self.makeEventName = ko.observable("");
 
    self.onLikeMovie = function() {
-       server.likeMovie(self.currentMovie(), function(success) {
-         flipCard();
-       });
+       flipCard();
+//       server.likeMovie(self.currentMovie(), function(success) {
+//         flipCard();
+//       });
    };
 
    self.onNewMovies = function(movie) {
