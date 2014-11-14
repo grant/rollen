@@ -148,3 +148,8 @@ exports.recommend = function(req, res) {
     });
   });
 }
+
+// exports.search = function(req, res) {
+//   var search_term = req.query.text;
+//   req.user.friends.
+// }

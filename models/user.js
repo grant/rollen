@@ -26,6 +26,7 @@ var userSchema = new Schema({
   },
   fb_id: String,
   friends: [],  // list of id's
+  friends_with_names: [],  // list of names and id's of friends
   photo: {
     type: String
   },

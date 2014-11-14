@@ -39,8 +39,8 @@ module.exports = function (passport) {
     request('https://graph.facebook.com/me?fields=friends&limit=1000&access_token='+accessToken,
       function(err, resp, body) {
         body = JSON.parse(body);
-        async.mapLimit(body.friends.data, 20, function(friend, cb) {return friend.id}, function(err, friends) {
-          callback(friends);
+        async.mapLimit(body.friends.data, 20, function(friend, cb) {return friend.id}, function(err, friends_ids) {
+          callback(friends_ids, body.friends.data);
         });
       });
   }
@@ -121,7 +121,7 @@ module.exports = function (passport) {
         if (err) return done(err);
         console.log("new user found");
 
-        getFriends(accessToken, function(friends) {
+        getFriends(accessToken, function(friends_ids, friends) {
           console.log("got " + friends.length + " friends");
           getLikedMovies(accessToken, profile.id, function(movies) {
             async.map(movies, getMovieData, function(err, result) {
@@ -134,7 +134,8 @@ module.exports = function (passport) {
                   name: profile.displayName,
                   photo: profile.photos[0].value,
                   username: profile.emails[0].value.split('@')[0],
-                  friends: friends,
+                  friends: friends_ids,
+                  friends_with_names: friends,
                   movie_likes: results
                 }).save(function(err, newUser) {
                   if (err) return done(err);
