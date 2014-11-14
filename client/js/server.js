@@ -1,4 +1,5 @@
 var Movie = require('./movie');
+var Friend = require('./friend');
 var $ = require('jquery');
 
 function Server(url) {
@@ -74,8 +75,8 @@ function Server(url) {
     self.getLikes = function(callback) {
         $.get('/all_likes', function(data) {
             var movies = [];
-            for (var i = 0; i < data.queue.length; i++) {
-                var movie = data.queue[i];
+            for (var i = 0; i < data.result.length; i++) {
+                var movie = data.result[i];
                 movies.push(new Movie(movie.title, movie.trailer, movie));
             }
 

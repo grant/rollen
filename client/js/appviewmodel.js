@@ -4,7 +4,6 @@ var Movie = require('./movie');
 var ko = require('knockout');
 var $ = require('jquery');
 
-
 function AppViewModel() {
   // PRIVATE
   //-------------
@@ -17,24 +16,16 @@ function AppViewModel() {
   var self = this;
   var server = new Server(API_URL);
 
-  // server.search(function("Ryan", data) {
-  //   console.log(data);
-  // });
-  //  throw "die";
-
   var disableSwipe = false;
 
   // Queue for movies
   var movies = [];
 
-  var toggleVideo = function(state) {
-    // if state == 'hide', hide. Else: show video
-    var div = document.getElementById("popupVid");
-    var iframe = div.getElementsByTagName("iframe")[0].contentWindow;
-    div.style.display = state == 'hide' ? 'none' : '';
-    func = state == 'hide' ? 'pauseVideo' : 'playVideo';
-    iframe.postMessage('{"event":"command","func":"' + func + '","args":""}', '*');
-  }
+  var pauseNextVideo = function(state) {
+    // var iframe = document.getElementsByTagName("iframe")[1].contentWindow;
+    // func = state ? 'pauseVideo' : 'playVideo';
+    // iframe.postMessage('{"event":"command","func":"' + func + '","args":""}', '*');
+  };
 
   var onShowDetail = function() {
     self.showDetails(true);
@@ -62,9 +53,9 @@ function AppViewModel() {
     } else {
       self.currentMovie(movies[1]);
     }
-    console.log(self.currentMovie());
-    console.log(self.nextMovie());
-    console.log(movies);
+    // console.log(self.currentMovie());
+    // console.log(self.nextMovie());
+    // console.log(movies);
   };
 
   // DOM stuff for moving to the next frame
@@ -72,11 +63,17 @@ function AppViewModel() {
   var nextCard = function() {
     disableSwipe = true;
     console.log('next card');
+
+    self.showDetails(false);
+    $('.make-event-button').show();
+    self.instaFriendList([]);
+    self.partialFriendName("");
+
     $('.film-roll').animate({
       'top': '0'
     }, 1000, function() {
       console.log('New card down: done');
-
+      pauseNextVideo(false);
       nextMovie();
 
       $('.film-roll').css({
@@ -85,13 +82,45 @@ function AppViewModel() {
       var $last = $('.frame').last();
       var $first = $('.frame').first();
       $first.before($last);
+      pauseNextVideo(true);
       disableSwipe = false;
     });
   };
 
   // Shows the movie details
   var flipCard = function() {
-    self.showDetails(!self.showDetails());
+    var rotationSpeed = 10;
+    function rotateForward () {
+      // manually rotate until done
+      var rotation = 0;
+      var id = setInterval(function () {
+        rotation += rotationSpeed;
+        $('.film-roll').css('transform', 'rotateY('+rotation+'deg)');
+        if (rotation > 90) {
+          clearInterval(id);
+          // change data
+          self.showDetails(!self.showDetails());
+          // rotate back
+          rotateBackward();
+        }
+      }, 30);
+    }
+
+    function rotateBackward () {
+      // manually rotate until done
+      var rotation = 90;
+      var id = setInterval(function () {
+        rotation -= rotationSpeed;
+        $('.film-roll').css('transform', 'rotateY('+rotation+'deg)');
+        if (rotation < 0) {
+          clearInterval(id);
+          // fix rotation
+          $('.film-roll').css('transform', 'rotateY(0)');
+        }
+      }, 30);
+    }
+    
+    rotateForward();
   };
 
   // PUBLIC
@@ -101,21 +130,45 @@ function AppViewModel() {
   self.firstMovie = ko.observable(true);
   self.showDetails = ko.observable(false);
   self.makeEventName = ko.observable("");
+  self.instaFriendList = ko.observableArray([]);
+  self.partialFriendName = ko.observable("");
+
+
+  self.onSearchFriend = function() {
+    console.log(self.partialFriendName());
+    if (self.partialFriendName() != "") {
+        server.search(self.partialFriendName(), function(friends) {
+            self.instaFriendList(friends.slice(0,10));
+        });
+    }
+    return true; // allow typing
+  };
+
+    self.onRecommendFriend = function(friend, movie) {
+        if (confirm("Really recommend?")) {
+            server.recommend(friend, movie, function(success) {
+            });
+        }
+    };
 
   // Event handler for liking a movie
   self.onLikeMovie = function() {
     flipCard();
     server.likeMovie(self.currentMovie(), function(success) {
-      flipCard();
     });
   };
 
   // Event handler for liking a movie
-  self.onCreateEvent = function() {
-    server.makeEvent(self.makeEventName, function(event) {
-      console.log(event);
-      // TODO: show event url
-    });
+  self.onCreateEvent = function(movie) {
+    if(self.makeEventName() != "") {
+      $('.make-event-button').hide();
+      server.makeEvent(self.makeEventName(), function(event) {
+          console.log(event);
+          // TODO: show event url
+          movie.setEventPage(event);
+          movie.setEventCreated(true);
+      });
+    }
   };
 
   // Event handler for getting new movies
@@ -167,14 +220,22 @@ function AppViewModel() {
     return true;
   });
 
+  // Load Youtube player API
+  var tag = document.createElement('script');
+  tag.src = "http://www.youtube.com/player_api";
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
   // Gets first movies for queue
   server.getNextTrailers(function(data) {
     // Load the movie into the queue
     self.onNewMovies(data);
 
     // Set data bindings to movies
+    console.log(YT.Player);
     self.currentMovie(movies[0]);
     self.nextMovie(movies[1]);
+    pauseNextVideo(true);
   });
 }
 
