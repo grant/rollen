@@ -75,6 +75,13 @@ function AppViewModel() {
    self.showDetails = ko.observable(false);
    self.makeEventName = ko.observable("");
 
+   self.onLikeMovie = function() {
+       flipCard();
+//     server.likeMovie(self.currentMovie(), function(success) {
+//        flipCard();
+//     });
+   };
+
    self.onNewMovies = function(movie) {
      // Push in the new movie and update the current pointer
      movies = movies.concat(movie);
@@ -91,7 +98,7 @@ function AppViewModel() {
      if (!disableSwipe) {
        // First "Yes" flip
        if (!self.showDetails()) {
-         flipCard();
+         self.onLikeMovie();
        } else { // Next card
          self.onLeft();
        }
