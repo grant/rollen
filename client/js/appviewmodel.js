@@ -15,7 +15,7 @@ function AppViewModel() {
 
    var ACCESS_TOKEN = $('#access-token').text();
    var self = this;
-   //var server = new Server(API_URL);
+   var server = new Server(API_URL);
 
    var disableSwipe = false;
 
