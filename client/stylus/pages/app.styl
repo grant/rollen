@@ -23,6 +23,11 @@ body
     display: inline-block;
 
 .profile
+  @media phone
+    .profile-picture
+      border 3px solid white
+    border-radius 7px
+  z-index 1000
   position absolute
   top 0
   right 0
@@ -71,50 +76,66 @@ body
         position relative
         width 'calc(100% - %s)' % (padWidth * 2)
         .details
-          height 100%;
+          height 100%
           .top-area
             padding 20px
             .title
-              margin 20px
+              padding 20px
               text-align center
+              @media phone
+                font-size 20px
             .friends-that-like
-              width calc(50% - 20px);
+              @media phone
+                display none
+              width calc(50% - 20px)
               float left
               .friend
-                display inline-block;
+                display inline-block
               input, input:active
-                padding 20px;
-                background black;
-                color white;
-                border none;
-                font-size 1.2em;
+                padding 20px
+                background black
+                color white
+                border none
+                font-size 1.2em
               li
-                margin-top 10px;
-                font-size 1.1em;
+                margin-top 10px
+                font-size 1.1em
               li:hover
-                cursor pointer;
+                cursor pointer
             .make-event
-              width calc(40% - 10px);
-              float right;
-              margin-left 20px;
+              @media phone
+                width 100%
+                padding 0
+              width 50%
+              padding-left 20px
+              float right
               input, input:active
-                padding 20px;
-                background black;
-                color white;
-                border none;
-                font-size 1.2em;
+                @media phone
+                  width 100%
+                padding 20px
+                background black
+                color white
+                border none
+                font-size 1.2em
               button
-                margin-left 10px;
+                @media phone
+                  margin 0
+                  width 100%
+                margin-left 10px
             .event-link
               opacity 0
         .button-area
           position absolute
           bottom -2px
           width 100%
+          height 150px
+          @media phone
+            height 50px
           button
             background-color black
             padding 0
             width 50%
+            height 100%
             cursor pointer
             transition background-color transition-speed, fill transition-speed
             fill white
@@ -124,16 +145,24 @@ body
               fill green
             &.dislike:hover
               fill light-red
+            svg
+              width 50%
+              height 100%
         .summary
           padding 10px
           color gray
           font-size 20px
+          max-height 300px
+          overflow hidden
+          text-overflow hidden
+          line-height 1.5
+          letter-spacing 1px
         .video
           .title
-            width 100%;
-            display block;
-            text-align center;
-            margin 20px
+            width 100%
+            display block
+            text-align center
+            padding 20px
           .video-player
             width 100%
             height 500px
@@ -141,13 +170,23 @@ body
             margin 0 auto
             margin-top 10px
 
+        @media phone
+          .video
+            .title
+              font-size 20px
+            .video-player
+              height 300px
+
+          .summary
+            display none
+
 .btn-dark
-  background-color gray;
+  background-color gray
   display inline-block
-  padding 20px;
-  font-size 1.2em;
-  color white;
-  font-family BebasNeue;
+  padding 20px
+  font-size 1.2em
+  color white
+  font-family BebasNeue
 
 .btn-dark:hover
-  cursor pointer;
+  cursor pointer
