@@ -52,7 +52,6 @@ body
       .card-area
         position: relative
         width 'calc(100% - %s)' % (padWidth * 2)
-        padding 10px
         .details
           height: 100%;
           h2
@@ -88,13 +87,16 @@ body
               margin-left: 10px;
         .button-area
           position: absolute
-          bottom 0
+          bottom -2px
           width 100%
           button
             background-color gray
             padding 0
             width 50%
             cursor: pointer
+            transition background-color transition-speed
+            &:hover
+              background-color black
         .video
           h2
             width: 100%;
