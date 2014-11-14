@@ -10,7 +10,7 @@ h2(data-bind="text: title")
         h3 recommend to friend
         input.friend-search(data-bind="value: $root.partialFriendName, valueUpdate: 'afterkeydown', event: {keydown: $root.onSearchFriend}" placeholder="Search friend name")
         ul(data-bind="foreach: $root.instaFriendList")
-            li
+            li(data-bind="click: function() { $root.onRecommendFriend($data, $parent); }")
                 span(data-bind="text: name")
 
 .make-event

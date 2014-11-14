@@ -144,6 +144,13 @@ function AppViewModel() {
     return true; // allow typing
   };
 
+    self.onRecommendFriend = function(friend, movie) {
+        if (confirm("Really recommend?")) {
+            server.recommend(friend, movie, function(success) {
+            });
+        }
+    };
+
   // Event handler for liking a movie
   self.onLikeMovie = function() {
     flipCard();
