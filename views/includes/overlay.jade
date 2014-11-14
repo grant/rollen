@@ -1,4 +1,4 @@
-.overlay(data-bind="visible: showOverlay(), css: {hidden : !showOverlay()}")
+.overlay(data-bind="visible: showOverlay()")
     .exit-button(data-bind="click: onCloseOverlay")
         include ../../public/img/dislike.svg
     .liked-movies(data-bind="foreach: likedMovies")

@@ -11,7 +11,7 @@ block content
   include includes/overlay
   .profile(data-bind="click: onClickProfile")
     img.profile-picture(src=photo)
-  .film-area
+  .film-area(data-bind="css: {hidden : !showOverlay()}")
     .film-roll
       .frame
         .left.pad-left
