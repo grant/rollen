@@ -24,5 +24,6 @@ $(function () {
   }
 
   createKernel();
-  setInterval(updateKernels, 100);
+  setInterval(updateKernels, 30);
+  // setInterval(createKernel, 100);
 });
