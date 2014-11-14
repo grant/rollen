@@ -175,6 +175,9 @@ function AppViewModel() {
           // TODO: show event url
           movie.setEventPage(event);
           movie.setEventCreated(true);
+          $('.event-prompt').fadeOut(500, 'swing', function() {
+            $('.event-link').css({'opacity': 1});
+          })
       });
     }
   };
