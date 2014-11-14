@@ -11,7 +11,7 @@ function Server(url) {
             var movies = [];
             for (var i = 0; i < data.queue.length; i++) {
                 var movie = data.queue[i];
-                movies.push(new Movie(movie.title, movie.trailer, movie));
+                movies.push(new Movie(movie.title, movie.trailer, movie.overview, movie.poster, movie));
             }
 
             callback(movies);
@@ -77,7 +77,7 @@ function Server(url) {
             var movies = [];
             for (var i = 0; i < data.result.length; i++) {
                 var movie = data.result[i];
-                movies.push(new Movie(movie.title, movie.trailer, movie));
+                movies.push(new Movie(movie.title, movie.trailer, movie.overview, movie.poster, movie));
             }
 
             callback(movies);
