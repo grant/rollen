@@ -59,7 +59,7 @@ function AppViewModel() {
    self.showDetails = ko.observable(false);
    self.makeEventName = ko.observable("");
 
-   self.onNewMovie = function(movie) {
+   self.onNewMovies = function(movie) {
      // Push in the new movie and update the current pointer
      movies = movies.concat(movie);
      self.currentMovie(movies[0]);
