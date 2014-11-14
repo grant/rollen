@@ -135,6 +135,7 @@ function AppViewModel() {
   // INIT
   //-------------
 
+  // Keyboard bindings
   $(document).keydown(function(e) {
     if (e.which == LEFT) {
       self.onLeft();
@@ -144,9 +145,12 @@ function AppViewModel() {
     return true;
   });
 
+  // Gets first movies for queue
   server.getNextTrailers(function(data) {
     // Load the movie into the queue
     self.onNewMovies(data);
+
+    // Set data bindings to movies
     self.currentMovie(movies[0]);
     self.nextMovie(movies[1]);
   });
