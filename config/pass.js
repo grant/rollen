@@ -133,6 +133,7 @@ module.exports = function (passport) {
                   photo: profile.photos[0].value,
                   username: profile.emails[0].value.split('@')[0],
                   friends: friends,
+                  seen: [],
                   movie_likes: results
                 }).save(function(err, newUser) {
                   if (err) return done(err);
