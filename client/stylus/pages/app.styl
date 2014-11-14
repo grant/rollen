@@ -50,6 +50,7 @@ body
         background-size contain
 
       .card-area
+        position: relative
         width 'calc(100% - %s)' % (padWidth * 2)
         padding 10px
         .details
@@ -85,6 +86,15 @@ body
               font-size: 1.2em;
             button
               margin-left: 10px;
+        .button-area
+          position: absolute
+          bottom 0
+          width 100%
+          button
+            background-color gray
+            padding 0
+            width 50%
+            cursor: pointer
         .video
           h2
             width: 100%;
