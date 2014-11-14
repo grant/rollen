@@ -4,7 +4,6 @@ var Movie = require('./movie');
 var ko = require('knockout');
 var $ = require('jquery');
 
-
 function AppViewModel() {
   // PRIVATE
   //-------------
@@ -85,7 +84,37 @@ function AppViewModel() {
 
   // Shows the movie details
   var flipCard = function() {
-    self.showDetails(!self.showDetails());
+    function rotateForward () {
+      // manually rotate until done
+      var rotation = 0;
+      var id = setInterval(function () {
+        rotation += 5;
+        $('.film-roll').css('transform', 'rotateY('+rotation+'deg)');
+        if (rotation > 90) {
+          clearInterval(id);
+          // change data
+          self.showDetails(!self.showDetails());
+          // rotate back
+          rotateBackward();
+        }
+      }, 30);
+    }
+
+    function rotateBackward () {
+      // manually rotate until done
+      var rotation = 90;
+      var id = setInterval(function () {
+        rotation -= 5;
+        $('.film-roll').css('transform', 'rotateY('+rotation+'deg)');
+        if (rotation < 0) {
+          clearInterval(id);
+          // fix rotation
+          $('.film-roll').css('transform', 'rotateY(0)');
+        }
+      }, 30);
+    }
+    
+    rotateForward();
   };
 
   // PUBLIC
