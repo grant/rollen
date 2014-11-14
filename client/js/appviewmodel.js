@@ -22,10 +22,6 @@ function AppViewModel() {
   var movies = [];
 
 
-  var onShowDetail = function() {
-    self.showDetails(true);
-  };
-
   var getViewableMovieObv = function() {
       if (!self.firstMovie()) {
           return self.nextMovie;
@@ -74,8 +70,6 @@ function AppViewModel() {
   var nextCard = function() {
     disableSwipe = true;
     console.log('next card');
-
-    self.showDetails(false);
     $('.make-event-button').show();
     self.instaFriendList([]);
     self.partialFriendName("");
@@ -107,7 +101,7 @@ function AppViewModel() {
         if (rotation > 90) {
           clearInterval(id);
           // change data
-          self.showDetails(!self.showDetails());
+            getViewableMovieObv()().showDetails(!getViewableMovieObv()().showDetails());
           // rotate back
           rotateBackward();
         }
@@ -136,7 +130,6 @@ function AppViewModel() {
   self.currentMovie = ko.observable(null);
   self.nextMovie = ko.observable(null);
   self.firstMovie = ko.observable(true);
-  self.showDetails = ko.observable(false);
   self.makeEventName = ko.observable("");
   self.instaFriendList = ko.observableArray([]);
   self.partialFriendName = ko.observable("");
@@ -202,7 +195,7 @@ function AppViewModel() {
   self.onRight = function() {
     if (!disableSwipe) {
       // First "Yes" flip
-      if (!self.showDetails()) {
+      if (!getViewableMovieObv()().showDetails()) {
         self.onLikeMovie();
       } else { // Next card
         self.onLeft();

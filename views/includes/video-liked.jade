@@ -1,17 +1,17 @@
 .liked-card-icon
 h2(data-bind="text: title")
 .friends-that-like
-    div(data-bind="visible: friends().length > 0")
-        h3 friends who like this
-        .friends(data-bind="foreach: friends")
-            .friend
-                img(data-bind="attr: {src: photoURL}")
-    div
-        h3 recommend to friend
-        input.friend-search(data-bind="value: $root.partialFriendName, valueUpdate: 'afterkeydown', event: {keydown: $root.onSearchFriend}" placeholder="Search friend name")
-        ul(data-bind="foreach: $root.instaFriendList")
-            li(data-bind="click: function() { $root.onRecommendFriend($data, $parent); }")
-                span(data-bind="text: name")
+  div(data-bind="visible: friends().length > 0")
+    h3 friends who like this
+    .friends(data-bind="foreach: friends")
+      .friend
+        img(data-bind="attr: {src: photoURL}")
+  div
+    h3 recommend to friend
+    input.friend-search(data-bind="value: $root.partialFriendName, valueUpdate: 'afterkeydown', event: {keydown: $root.onSearchFriend}" placeholder="Search friend name")
+    ul(data-bind="foreach: $root.instaFriendList")
+      li(data-bind="click: function() { $root.onRecommendFriend($data, $parent); }")
+        span(data-bind="text: name")
 
 .make-event
     div.event-prompt
