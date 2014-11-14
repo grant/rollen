@@ -9,17 +9,17 @@ var express = require('express'),       // the main ssjs framework
     // RedisStore = require('connect-redis')(express); // for persistent sessions
 var session = require('cookie-session');
 
-var redis;
-var redisURI = process.env.MONGOLAB_URI || 'redis://redistogo:57028c3a314873902459d1407db1657e@greeneye.redistogo.com:11571/';
-if (redisURI) {
-    console.log("using reditogo");
-    rtg   = require('url').parse(redisURI);
-    redis = require('redis').createClient(rtg.port, rtg.hostname);
-    redis.auth(rtg.auth.split(':')[1]); // auth 1st part is username and 2nd is password separated by ":"
-} else {
-    console.log("using local redis");
-    redis = require("redis").createClient();
-}
+// var redis;
+// var redisURI = process.env.MONGOLAB_URI || 'redis://redistogo:57028c3a314873902459d1407db1657e@greeneye.redistogo.com:11571/';
+// if (redisURI) {
+//     console.log("using reditogo");
+//     rtg   = require('url').parse(redisURI);
+//     redis = require('redis').createClient(rtg.port, rtg.hostname);
+//     redis.auth(rtg.auth.split(':')[1]); // auth 1st part is username and 2nd is password separated by ":"
+// } else {
+//     console.log("using local redis");
+//     redis = require("redis").createClient();
+// }
 
 app.configure(function(){
     app.set('port', process.env.PORT || 8888);
