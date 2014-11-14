@@ -3,6 +3,6 @@ iframe.video-player(data-bind="attr: {src: youtubeUrl}" frameborder="0" allowful
 p(data-bind="text: summary")
 .button-area
   button.dislike(data-bind="click: $root.onLeft")
-    img(src='img/dislike.svg')
+    include ../../public/img/dislike.svg
   button.like(data-bind="click: $root.onRight")
-    img(src='img/like.svg')
+    include ../../public/img/like.svg
