@@ -19,17 +19,17 @@ body
     border-radius 5px
 
 .film-area
-  position: relative
+  position relative
   width 1000px
   max-width 100%
   margin 0 auto
   height 100%
 
   .film-roll
-    position: absolute
-    width: 100%
+    position absolute
+    width 100%
     height 100%
-    top: -100%
+    top -100%
 
     .frame
       height 100%
@@ -50,54 +50,54 @@ body
         background-size contain
 
       .card-area
-        position: relative
+        position relative
         width 'calc(100% - %s)' % (padWidth * 2)
         .details
-          height: 100%;
+          height 100%;
           .top-area
             padding 20px
-            h2
-              margin-top: 20px;
-              margin-bottom: 20px;
+            .title
+              margin 20px
+              text-align center
             .friends-that-like
-              width: calc(50% - 20px);
-              float: left
+              width calc(50% - 20px);
+              float left
               .friend
-                display: inline-block;
+                display inline-block;
               input, input:active
-                padding: 20px;
-                background: black;
-                color: white;
-                border: none;
-                font-size: 1.2em;
+                padding 20px;
+                background black;
+                color white;
+                border none;
+                font-size 1.2em;
               li
-                margin-top: 10px;
-                font-size: 1.1em;
+                margin-top 10px;
+                font-size 1.1em;
               li:hover
-                cursor: pointer;
+                cursor pointer;
             .make-event
-              width: calc(40% - 20px);
-              float: right;
-              margin-left: 20px;
+              width calc(40% - 20px);
+              float right;
+              margin-left 20px;
               input, input:active
-                padding: 20px;
-                background: black;
-                color: white;
-                border: none;
-                font-size: 1.2em;
+                padding 20px;
+                background black;
+                color white;
+                border none;
+                font-size 1.2em;
               button
-                margin-left: 10px;
+                margin-left 10px;
             .event-link
-              opacity: 0
+              opacity 0
         .button-area
-          position: absolute
+          position absolute
           bottom -2px
           width 100%
           button
             background-color black
             padding 0
             width 50%
-            cursor: pointer
+            cursor pointer
             transition background-color transition-speed, fill transition-speed
             fill white
             &.full
@@ -112,9 +112,9 @@ body
           font-size 20px
         .video
           .title
-            width: 100%;
-            display: block;
-            text-align: center;
+            width 100%;
+            display block;
+            text-align center;
             margin 20px
           .video-player
             width 100%
@@ -122,16 +122,14 @@ body
             background gray
             margin 0 auto
             margin-top 10px
-.clearfix
-  clear: both;
 
 .btn-dark
-  background-color: gray;
-  display: inline-block
-  padding: 20px;
-  font-size: 1.2em;
-  color: white;
-  font-family: BebasNeue;
+  background-color gray;
+  display inline-block
+  padding 20px;
+  font-size 1.2em;
+  color white;
+  font-family BebasNeue;
 
 .btn-dark:hover
-  cursor: pointer;
+  cursor pointer;
