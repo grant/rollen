@@ -8,9 +8,9 @@ block js
 
 block content
   span.access-token= accessToken
-  include includes/overlay
   .profile(data-bind="click: onClickProfile")
     img.profile-picture(src=photo)
+  include includes/overlay
   .film-area(data-bind="css: {hidden : !showOverlay()}")
     .film-roll
       .frame

@@ -18,7 +18,17 @@ body
   height 100%
   z-index 9999999
 
+  transition opacity 1s
+
+  &.hidden
+    pointer-events none
+    opacity 0
+  &:not(.hidden)
+    pointer-events auto
+    opacity 1
+
   .exit-button
+    cursor pointer
     position fixed
     top 0
     right 0
@@ -42,6 +52,7 @@ body
     .profile-picture
       border 3px solid white
     border-radius 7px
+  cursor pointer
   z-index 1000
   position absolute
   top 0
