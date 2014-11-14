@@ -11,14 +11,13 @@ block content
     span.access-token= accessToken
     #flash
     .profile
-      img.profile-picture(src = photo)
-    .wrapper
-      .left-pad
-      .app
-        .content
-          .card.card-one(data-bind="visible: showFirstCard()")
-            include includes/card
-          .card.card-two(data-bind="visible: !showFirstCard()")
-            include includes/card
-      .right-pad
-      .clear-fix
+      img.profile-picture(src=photo)
+    .film-roll
+      .frame
+        .left-pad
+        include includes/card
+        .right-pad
+      .frame
+        .left-pad
+        include includes/card
+        .right-pad
