@@ -56,6 +56,13 @@ function Server(url) {
             callback(true);
         });
     };
+
+    // RETURNS AN ARRAY OF {NAME, ID}
+    self.search = function(friendName, callback) {
+        $.get('/search', {text : friendName}, function(data) {
+            callback(data.results);
+        });
+    };
 }
 
 module.exports = Server;
