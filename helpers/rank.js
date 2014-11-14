@@ -62,7 +62,7 @@ module.exports = function(user, callback) {
         });
 
         // Grab the final objects and ignore the scores
-        data = []
+        data = [];
         for (var i = 0; i < rankedData.length; i++) {
             movieScore = rankedData[i];
             data.push(movieScore.data);
