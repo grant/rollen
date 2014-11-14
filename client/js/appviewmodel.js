@@ -16,21 +16,30 @@ function AppViewModel() {
     var self = this;
     var server = new Server(API_URL);
 
+    var movies = [];
+
 
     var flipCard = function() {
-        // DO JQUERY FLIP HERE
+
     };
 
     var nextCard = function() {
         // DO JQUERY DISCARD HERE
-        server.getNextTrailer(self.onNewMovie);
+        $('.card-one').slideDown();
+        server.getNextTrailer(function(movie) {
+            self.onNewMovie(movie);
+            movies.shift();
+            self.currentMovie(movies[movies.length - 1]);
+        });
     };
 
     // PUBLIC
     self.currentFriends = ko.observableArray([]);
+    self.currentMovie = ko.observable(null);
+    self.showFirstCard = ko.observable(true);
 
     self.onNewMovie = function(movie) {
-
+        movies.push(movie)
     };
 
     self.onRight = function() {
