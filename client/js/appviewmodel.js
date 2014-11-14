@@ -87,9 +87,12 @@ function AppViewModel() {
 
      // Fill in friend fields for each movie
      for(var i = 0; i < movie.length; i++) {
-         server.getFriendsWhoLiked(movie[i], function(friends) {
-            movie[i].setFriends(friends);
-         });
+         var currentMovie = movie[i];
+         (function(m) {
+           server.getFriendsWhoLiked(m, function(friends) {
+             m.setFriends(friends);
+           });
+         })(currentMovie);
      }
    };
 
