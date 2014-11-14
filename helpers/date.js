@@ -25,5 +25,5 @@ exports.nextSaturday = function(callback) {
     break;
   }
 
-  callback(d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate());
+  callback(d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate());
 }
